@@ -1,14 +1,17 @@
 import './App.css';
-import React, { Component } from 'react';
+import React from 'react';
+import AppNavbar from './components/AppNavbar';
+import Map from './components/Map';
+import SiteList from './components/SiteList';
 
-class App extends Component {
-
-  render() {
-    return (
-        <div className="App">
-        </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div className="App">
+      <AppNavbar />
+      <Map />
+      <SiteList />
+    </div>
+  );
+};
 
 export default App;
