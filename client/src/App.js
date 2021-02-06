@@ -5,6 +5,7 @@ import Map from './components/Map';
 import SiteList from './components/SiteList';
 
 const App = () => {
+  
   return (
     <div className="App">
       <AppNavbar />
