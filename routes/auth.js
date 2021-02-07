@@ -3,10 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
-const auth = require('../../middleware/auth');
+const auth = require('../middleware/auth');
 
 //User Model
-const User = require('../../models/User');
+const User = require('../models/User');
 
 //@route POST api/auth
 //@description authenticate user

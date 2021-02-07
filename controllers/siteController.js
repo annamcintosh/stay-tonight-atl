@@ -13,7 +13,7 @@ async function getAllSites(req, res) {
   const docClient = new AWS.DynamoDB.DocumentClient({ region: "us-east-1" });
   const params = {
     TableName: "stay-tonight-atl-sites", //TABLE_NAME
-    ProjectionExpression: "siteName, phone, address, stateName, city, zipcode",
+    // ProjectionExpression: "siteName, phone, address, stateName, city, zipcode",
   };
   await docClient.scan(params, onScan);
 

@@ -1,5 +1,6 @@
 import {
   GET_SITES,
+  GET_SITE,
   ADD_SITE,
   DELETE_SITE,
   SITES_LOADING,
@@ -16,6 +17,12 @@ export default function siteReducer(state = initialState, action) {
       return {
         ...state,
         sites: action.payload,
+        loading: false,
+      };
+    case GET_SITE:
+      return {
+        ...state,
+        sites: state.sites.filter((site) => site._id === action.payload),
         loading: false,
       };
     case DELETE_SITE:

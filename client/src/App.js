@@ -7,6 +7,9 @@ import AppNavbar from "./components/AppNavbar";
 import Map from "./components/Map";
 import SitePreviewTile from "./components/SitePreviewTile";
 import { loadUser } from "./actions/authActions";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AddSite from "./components/AddSite";
+import SingleSiteDetail from "./components/SingleSiteDetail";
 
 class App extends Component {
   componentDidMount() {
@@ -17,9 +20,23 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <AppNavbar />
-          <Map />
-          <SitePreviewTile />
+          <Router>
+            <header>
+              <AppNavbar />
+            </header>
+            <Switch>
+              <Route path="/add">
+                <AddSite />
+              </Route>
+              <Route path="/:id">
+                <SingleSiteDetail />
+              </Route>
+              <Route path="/">
+                <Map />
+                <SitePreviewTile />
+              </Route>
+            </Switch>
+          </Router>
         </div>
       </Provider>
     );

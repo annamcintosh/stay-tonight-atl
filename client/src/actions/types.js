@@ -1,4 +1,5 @@
 export const GET_SITES = 'GET_SITES';
+export const GET_SITE = 'GET_SITE'
 export const ADD_SITE = 'ADD_SITE';
 export const DELETE_SITE = 'DELETE_SITE';
 export const SITES_LOADING = 'SITES_LOADING';
