@@ -1,28 +1,14 @@
-
-//User Schema
-const userSchema = ({
-    name: {
-        type: String,
-        required: true
+const userSchema = {
+    "userId": {
+      "S": ""
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true
+    "siteId": {
+      "S": ""
     },
-    password: {
-        type: String,
-        required: true
+    "email": {
+      "S": ""
     },
-    register_date: {
-        type: Date,
-        default: Date.now
-    },
-    id: {
-        type: Number,
-        required: true
-    },
-    sites: {
-        type: String
+    "password": {
+      "S": ""
     }
-});
+}

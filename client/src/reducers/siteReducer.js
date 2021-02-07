@@ -3,14 +3,14 @@ import {
   ADD_SITE,
   DELETE_SITE,
   SITES_LOADING,
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   sites: [],
   loading: false,
 };
 
-export default function (state =  initialState, action) {
+export default function siteReducer(state = initialState, action) {
   switch (action.type) {
     case GET_SITES:
       return {

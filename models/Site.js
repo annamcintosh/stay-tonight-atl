@@ -1,51 +1,76 @@
-//Site Schema
 const siteSchema = {
   siteId: {
-    type: String,
-    required: true,
+    S: "",
   },
-  name: {
-    type: String,
-    required: true,
+  userId: {
+    S: "",
+  },
+  siteName: {
+    S: "",
   },
   phone: {
-    type: String,
-    required: true,
+    S: "",
   },
-  user: {
-    type: String,
-    required: true,
+  address: {
+    S: "",
   },
-  location: {
-    address: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    stateAbbrev: {
-      type: String,
-      required: true,
-    },
-    zipCode: {
-      type: String,
-      required: true,
-    },
-    latitude: {
-      type: String,
-      required: true,
-    },
-    longitude: {
-      type: String,
-      required: true,
-    },
+  city: {
+    S: "",
   },
-  tag: {
-    type: String,
+  stateName: {
+    S: "",
+  },
+  zipcode: {
+    S: "",
+  },
+  latitude: {
+    S: "",
+  },
+  longitude: {
+    S: "",
+  },
+  lgbtq: {
+    BOOL: false,
+  },
+  family: {
+    BOOL: false,
+  },
+  women: {
+    BOOL: false,
+  },
+  men: {
+    BOOL: false,
+  },
+  pets: {
+    BOOL: false,
+  },
+  youth: {
+    BOOL: false,
+  },
+  sunday: {
+    BOOL: false,
+  },
+  monday: {
+    BOOL: false,
+  },
+  tuesday: {
+    BOOL: false,
+  },
+  wednesday: {
+    BOOL: false,
+  },
+  thursday: {
+    BOOL: false,
+  },
+  friday: {
+    BOOL: false,
+  },
+  saturday: {
+    BOOL: false,
   },
   details: {
-    type: String,
+    S: "",
   },
 };
+
+exports.siteSchema = siteSchema;
