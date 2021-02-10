@@ -1,12 +1,18 @@
-import { GET_SITES, GET_SITE, ADD_SITE, DELETE_SITE, SITES_LOADING } from './types';
-import axios from 'axios';
-import { tokenConfig } from './authActions';
-import { returnErrors } from './errorActions';
+import {
+  GET_SITES,
+  GET_SITE,
+  ADD_SITE,
+  DELETE_SITE,
+  SITES_LOADING,
+} from "./types";
+import axios from "axios";
+import { tokenConfig } from "./authActions";
+import { returnErrors } from "./errorActions";
 
 export const getSites = () => (dispatch) => {
   dispatch(setSitesLoading());
   axios
-    .get('/api/sites')
+    .get("/api/sites")
     .then((res) =>
       dispatch({
         type: GET_SITES,
@@ -18,10 +24,10 @@ export const getSites = () => (dispatch) => {
     );
 };
 
-export const getSite = (id) => (dispatch) => {
+export const getSite = (siteId) => (dispatch) => {
   dispatch(setSitesLoading());
   axios
-    .get(`/api/sites/${id}`)
+    .get(`/api/sites/${siteId}`)
     .then((res) =>
       dispatch({
         type: GET_SITE,
@@ -33,13 +39,9 @@ export const getSite = (id) => (dispatch) => {
     );
 };
 
-export const addSite = (site) => (dispatch, getState) => {
+export const addSite = (newSite) => (dispatch, getState) => {
   axios
-    .post(
-      '/api/sites',
-      site,
-      tokenConfig(getState)
-    )
+    .post("/api/sites/add", newSite, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: ADD_SITE,
@@ -51,13 +53,13 @@ export const addSite = (site) => (dispatch, getState) => {
     );
 };
 
-export const deleteSite = (id) => (dispatch, getState) => {
+export const deleteSite = (siteId) => (dispatch, getState) => {
   axios
-    .delete(`api/sites/${id}`, tokenConfig(getState))
+    .delete(`api/sites/${siteId}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: DELETE_SITE,
-        payload: id,
+        payload: siteId,
       })
     )
     .catch((err) =>

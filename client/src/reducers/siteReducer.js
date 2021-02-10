@@ -22,13 +22,13 @@ export default function siteReducer(state = initialState, action) {
     case GET_SITE:
       return {
         ...state,
-        sites: state.sites.filter((site) => site._id === action.payload),
+        sites: state.sites.filter((site) => site.siteId === action.payload),
         loading: false,
       };
     case DELETE_SITE:
       return {
         ...state,
-        sites: state.sites.filter((site) => site._id !== action.payload),
+        sites: state.sites.filter((site) => site.siteId !== action.payload),
       };
     case ADD_SITE:
       return {

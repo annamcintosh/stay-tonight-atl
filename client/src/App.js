@@ -12,9 +12,9 @@ import AddSite from "./components/AddSite";
 import SingleSiteDetail from "./components/SingleSiteDetail";
 
 class App extends Component {
-  componentDidMount() {
-    store.dispatch(loadUser());
-  }
+  // componentDidMount() {
+  //   store.dispatch(loadUser());
+  // }
 
   render() {
     return (

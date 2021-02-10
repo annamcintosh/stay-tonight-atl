@@ -1,12 +1,17 @@
 const express = require("express");
-const { getAllSites } = require("../controllers/siteController");
+const {
+  allSitesController,
+  singleSiteController,
+  addOneSiteController,
+  updateOneSiteController,
+  deleteOneSiteController,
+} = require("../controllers/siteController");
 
 const router = express.Router();
-
-router.get("/", getAllSites);
-// router.get("/:id", getOneSite);
-// router.post("/add", addOneSite);
-// router.post("/:id", updateOneSite);
-// router.delete("/:id", deleteOneSite);
+router.get("/", allSitesController);
+router.get("/:siteId", singleSiteController);
+router.post("/add", addOneSiteController);
+router.post("/:siteId", updateOneSiteController);
+router.delete("/:siteId", deleteOneSiteController);
 
 module.exports = router;

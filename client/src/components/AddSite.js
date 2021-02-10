@@ -8,33 +8,30 @@ import {
   CustomInput,
   Col,
   Row,
-  NavLink,
-  Alert,
   Container,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import { addSite } from "../actions/siteActions";
 import { clearErrors } from "../actions/errorActions";
 
 class AddSite extends Component {
   state = {
-    modal: false,
-    name: "",
-    email: "",
-    password: "",
+    userId: "",
+    siteName: "",
     msg: null,
   };
 
   static propTypes = {
-    isAuthenticated: PropTypes.bool,
+    auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
     register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
   };
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
+    const { error } = this.props;
     if (error !== prevProps.error) {
       //Check for register error
       if (error.id === "REGISTER_FAIL") {
@@ -43,41 +40,78 @@ class AddSite extends Component {
         this.setState({ msg: null });
       }
     }
-
-    //If authenticated, close modal
-    if (this.state.modal) {
-      if (isAuthenticated) {
-        this.toggle();
-      }
-    }
   }
-
-  toggle = () => {
-    //Clear Errors
-    this.props.clearErrors();
-    this.setState({
-      modal: !this.state.modal,
-    });
-  };
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = (e) => {
+    const { isAuthenticated } = this.props.auth;
     e.preventDefault();
 
-    const { name, email, password } = this.state;
+    const siteId = uuidv4();
+    const userId = this.user.id;
+    const latitude = "latitude";
+    const longitude = "longitude";
+
+    const {
+      youth,
+      thursday,
+      monday,
+      women,
+      stateName,
+      address,
+      tuesday,
+      wednesday,
+      friday,
+      city,
+      zipcode,
+      siteName,
+      lgbtq,
+      sunday,
+      pets,
+      men,
+      saturday,
+      details,
+      family,
+      phone
+    } = this.state;
 
     // Create user object
     const newSite = {
-      name,
-      email,
-      password,
+      siteId,
+      userId, 
+      longitude,
+      latitude,
+      youth,
+      thursday,
+      monday,
+      women,
+      stateName,
+      address,
+      tuesday,
+      wednesday,
+      friday,
+      city,
+      zipcode,
+      siteName,
+      lgbtq,
+      sunday,
+      pets,
+      men,
+      saturday,
+      details,
+      family,
+      phone
     };
 
-    //Attempt to register
+    //Attempt to add site
+    if(isAuthenticated) {
     this.props.addsite(newSite);
+    } else {
+
+    }
   };
 
   render() {
@@ -103,20 +137,20 @@ class AddSite extends Component {
                 <CustomInput
                   type="checkbox"
                   id="Women"
-                  label="Women Only"
+                  label="Women Welcome"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
                   id="Youth"
-                  label="Youth Only"
+                  label="Youth Welcome"
                   inline
                 />
-                <CustomInput type="checkbox" id="Men" label="Men Only" inline />
+                <CustomInput type="checkbox" id="Men" label="Men Welcome" inline />
                 <CustomInput
                   type="checkbox"
                   id="lgbtq"
-                  label="LGBTQ+ Friendly"
+                  label="LGBTQ+ Welcome"
                   inline
                 />
                 <CustomInput
@@ -142,6 +176,7 @@ class AddSite extends Component {
                     name="phone"
                     id="phone"
                     placeholder="123-456-7890"
+                    onChange={this.onChange}
                     className="mb-4"
                   />
                 </FormGroup>
@@ -154,6 +189,7 @@ class AddSite extends Component {
                 name="address"
                 id="exampleAddress"
                 placeholder="1234 Main St"
+                onChange={this.onChange}
                 className="mb-4"
               />
             </FormGroup>
@@ -165,6 +201,7 @@ class AddSite extends Component {
                     type="text"
                     name="city"
                     id="exampleCity"
+                    onChange={this.onChange}
                     className="mb-4"
                   />
                 </FormGroup>
@@ -172,13 +209,23 @@ class AddSite extends Component {
               <Col md={4}>
                 <FormGroup>
                   <Label for="exampleState">State</Label>
-                  <Input type="text" name="state" id="exampleState" />
+                  <Input
+                    type="text"
+                    name="state"
+                    onChange={this.onChange}
+                    id="exampleState"
+                  />
                 </FormGroup>
               </Col>
               <Col md={2}>
                 <FormGroup>
                   <Label for="exampleZip">Zip</Label>
-                  <Input type="text" name="zip" id="exampleZip" />
+                  <Input
+                    type="text"
+                    name="zip"
+                    onChange={this.onChange}
+                    id="exampleZip"
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -235,7 +282,8 @@ class AddSite extends Component {
                 type="textarea"
                 name="text"
                 id="details"
-                placeholder="Tell us more about this site. What does someone need to stay here? What time do they need to arrive? What services are available?"
+                onChange={this.onChange}
+                placeholder="Tell us more about this site. Do you need identification to stay here? What time do you need to arrive? What services are available?"
                 className="mb-4"
               />
             </FormGroup>
