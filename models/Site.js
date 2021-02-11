@@ -74,3 +74,30 @@ const siteSchema = {
 };
 
 exports.siteSchema = siteSchema;
+
+const stubbedData = {
+  siteId: "6",
+  userId: "6",
+  longitude: "test",
+  latitude: "test",
+  youth: true,
+  thursday: true,
+  monday: true,
+  women: true,
+  stateName: "test",
+  address: "test",
+  tuesday: true,
+  wednesday: true,
+  friday: true,
+  city: "test",
+  zipcode: "test",
+  siteName: "testSixAdd",
+  lgbtq: true,
+  sunday: true,
+  pets: true,
+  men: true,
+  saturday: true,
+  details: "test",
+  family: true,
+  phone: "test",
+};

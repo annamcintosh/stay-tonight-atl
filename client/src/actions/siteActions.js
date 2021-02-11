@@ -25,14 +25,16 @@ export const getSites = () => (dispatch) => {
 };
 
 export const getSite = (siteId) => (dispatch) => {
+  console.log("Called from getSite");
   dispatch(setSitesLoading());
   axios
     .get(`/api/sites/${siteId}`)
     .then((res) =>
-      dispatch({
+      {console.log(res)
+      return dispatch({
         type: GET_SITE,
         payload: res.data,
-      })
+      })}
     )
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))

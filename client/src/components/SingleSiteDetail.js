@@ -15,43 +15,16 @@ class SingleSiteDetail extends Component {
   static propTypes = {
     getSite: PropTypes.func.isRequired,
     site: PropTypes.object.isRequired,
-    // auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
-    this.props.getSite();
+    this.props.getSite(this.props.match.params.siteId);
   }
 
   render() {
-    // const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
     const { sites } = this.props.site;
-    const stubbedData = {
-      siteId: "6",
-      userId: "6",
-      longitude: "test",
-      latitude: "test",
-      youth: true,
-      thursday: true,
-      monday: true,
-      women: true,
-      stateName: "test",
-      address: "test",
-      tuesday: true,
-      wednesday: true,
-      friday: true,
-      city: "test",
-      zipcode: "test",
-      siteName: "testSixAdd",
-      lgbtq: true,
-      sunday: true,
-      pets: true,
-      men: true,
-      saturday: true,
-      details: "test",
-      family: true,
-      phone: "test",
-    };
-
     const {
       siteName,
       phone,
@@ -73,7 +46,7 @@ class SingleSiteDetail extends Component {
       saturday,
       details,
       family,
-    } = stubbedData;
+    } = sites;
 
     return (
       <Container>
@@ -84,7 +57,9 @@ class SingleSiteDetail extends Component {
           <p className="lead">{`${city}, ${stateName} ${zipcode}`}</p>
           <hr className="my-2" />
           {lgbtq ? (
-            <p color="secondary" className="ml-3">LGBTQ+ Community Welcome</p>
+            <p color="secondary" className="ml-3">
+              LGBTQ+ Community Welcome
+            </p>
           ) : null}
           {women ? (
             <p color="secondary" className="ml-3">
@@ -128,17 +103,16 @@ class SingleSiteDetail extends Component {
           <h3>About This Shelter:</h3>
           <p className="lead">{details}</p>
 
-          {/* {isAuthenticated ? (
-                  <div>
-                    <Button color="dark" size="sm" onClick={this.toggleModal}>
-                      Delete This Shelter
-                    </Button>
-                    <Button color="dark" size="sm" onClick={this.toggleModal}>
-                      Edit This Shelter
-                    </Button>
-                  </div>
-                ) : null} */}
-          <Button color="secondary">Back to Main Page</Button>
+          {!isAuthenticated ? (
+            <div>
+              <Button color="dark" className="mr-3" onClick={this.toggleModal}>
+                Edit This Shelter
+              </Button>
+              <Button color="dark" className="mr-3" onClick={this.toggleModal}>
+                Delete This Shelter
+              </Button>
+            </div>
+          ) : null}
         </Jumbotron>
       </Container>
     );
@@ -147,7 +121,7 @@ class SingleSiteDetail extends Component {
 
 const mapStateToProps = (state) => ({
   site: state.site,
-  // auth: state.auth,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getSite })(SingleSiteDetail);

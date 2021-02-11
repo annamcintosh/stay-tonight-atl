@@ -6,7 +6,7 @@ import store from "./store";
 import AppNavbar from "./components/AppNavbar";
 import Map from "./components/Map";
 import SitePreviewTile from "./components/SitePreviewTile";
-import { loadUser } from "./actions/authActions";
+// import { loadUser } from "./actions/authActions";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddSite from "./components/AddSite";
 import SingleSiteDetail from "./components/SingleSiteDetail";
@@ -25,13 +25,9 @@ class App extends Component {
               <AppNavbar />
             </header>
             <Switch>
-              <Route path="/add">
-                <AddSite />
-              </Route>
-              <Route path="/:id">
-                <SingleSiteDetail />
-              </Route>
-              <Route path="/">
+              <Route exact path="/api/sites/add" component={AddSite} />
+              <Route path="/api/sites/:siteId" component={SingleSiteDetail} />
+              <Route path="/api/sites">
                 <Map />
                 <SitePreviewTile />
               </Route>

@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import { addSite } from "../actions/siteActions";
 import { clearErrors } from "../actions/errorActions";
+import { Link } from "react-router-dom";
 
 class AddSite extends Component {
   state = {
@@ -51,7 +52,7 @@ class AddSite extends Component {
     e.preventDefault();
 
     const siteId = uuidv4();
-    const userId = this.user.id;
+    const userId = uuidv4();
     const latitude = "latitude";
     const longitude = "longitude";
 
@@ -75,13 +76,13 @@ class AddSite extends Component {
       saturday,
       details,
       family,
-      phone
+      phone,
     } = this.state;
 
     // Create user object
     const newSite = {
       siteId,
-      userId, 
+      userId,
       longitude,
       latitude,
       youth,
@@ -103,14 +104,13 @@ class AddSite extends Component {
       saturday,
       details,
       family,
-      phone
+      phone,
     };
 
     //Attempt to add site
-    if(isAuthenticated) {
-    this.props.addsite(newSite);
+    if (!isAuthenticated) {
+      this.props.addsite(newSite);
     } else {
-
     }
   };
 
@@ -136,17 +136,22 @@ class AddSite extends Component {
               <div className="mb-4 ml-3">
                 <CustomInput
                   type="checkbox"
-                  id="Women"
+                  id="women"
                   label="Women Welcome"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Youth"
+                  id="youth"
                   label="Youth Welcome"
                   inline
                 />
-                <CustomInput type="checkbox" id="Men" label="Men Welcome" inline />
+                <CustomInput
+                  type="checkbox"
+                  id="Men"
+                  label="Men Welcome"
+                  inline
+                />
                 <CustomInput
                   type="checkbox"
                   id="lgbtq"
@@ -155,13 +160,13 @@ class AddSite extends Component {
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Families"
+                  id="family"
                   label="Families Welcome"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Pets"
+                  id="pets"
                   label="Pet Friendly"
                   inline
                 />
@@ -183,11 +188,11 @@ class AddSite extends Component {
               </Col>
             </Row>
             <FormGroup>
-              <Label for="exampleAddress">Address</Label>
+              <Label for="address">Address</Label>
               <Input
                 type="text"
                 name="address"
-                id="exampleAddress"
+                id="address"
                 placeholder="1234 Main St"
                 onChange={this.onChange}
                 className="mb-4"
@@ -196,11 +201,11 @@ class AddSite extends Component {
             <Row form>
               <Col md={6}>
                 <FormGroup>
-                  <Label for="exampleCity">City</Label>
+                  <Label for="city">City</Label>
                   <Input
                     type="text"
                     name="city"
-                    id="exampleCity"
+                    id="city"
                     onChange={this.onChange}
                     className="mb-4"
                   />
@@ -208,69 +213,69 @@ class AddSite extends Component {
               </Col>
               <Col md={4}>
                 <FormGroup>
-                  <Label for="exampleState">State</Label>
+                  <Label for="stateName">State</Label>
                   <Input
                     type="text"
-                    name="state"
+                    name="stateName"
                     onChange={this.onChange}
-                    id="exampleState"
+                    id="stateName"
                   />
                 </FormGroup>
               </Col>
               <Col md={2}>
                 <FormGroup>
-                  <Label for="exampleZip">Zip</Label>
+                  <Label for="zipcode">Zip</Label>
                   <Input
                     type="text"
-                    name="zip"
+                    name="zipcode"
                     onChange={this.onChange}
-                    id="exampleZip"
+                    id="zipcode"
                   />
                 </FormGroup>
               </Col>
             </Row>
             <FormGroup>
-              <Label for="exampleCheckbox">Days Open:</Label>
+              <Label for="daysCheckbox">Days Open:</Label>
               <div className="mb-4">
                 <CustomInput
                   type="checkbox"
-                  id="Sunday"
+                  id="sunday"
                   label="Sunday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Monday"
+                  id="monday"
                   label="Monday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Tuesday"
+                  id="tuesday"
                   label="Tuesday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Wednesday"
+                  id="wednesday"
                   label="Wednesday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Thursday"
+                  id="thursday"
                   label="Thursday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Friday"
+                  id="friday"
                   label="Friday"
                   inline
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Saturday"
+                  id="saturday"
                   label="Saturday"
                   inline
                 />
@@ -290,12 +295,12 @@ class AddSite extends Component {
             <FormGroup>
               <Button
                 color="dark"
-                style={{ marginTop: "2rem" }}
-                block
+                className="mr-2"
                 onClick={this.state.onSubmit}
               >
                 Submit
               </Button>
+              <Link to={"/api/sites"}>Cancel</Link>
             </FormGroup>
           </Form>
         </Container>

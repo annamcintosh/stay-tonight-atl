@@ -22,7 +22,7 @@ export default function siteReducer(state = initialState, action) {
     case GET_SITE:
       return {
         ...state,
-        sites: state.sites.filter((site) => site.siteId === action.payload),
+        sites: action.payload,
         loading: false,
       };
     case DELETE_SITE:

@@ -40,7 +40,7 @@ class AppNavbar extends Component {
             <strong>{user ? `Welcome, ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <NavLink href='/add'>Add a Site</NavLink>
+        <NavLink href='/api/sites/add'>Add a Shelter</NavLink>
         <NavItem>
           <LogoutModal />
         </NavItem>
@@ -62,7 +62,7 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">Stay Tonight ATL</NavbarBrand>
+            <NavbarBrand href="/api/sites">Stay Tonight ATL</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
