@@ -27,7 +27,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/api/sites/add" component={AddSite} />
               <Route path="/api/sites/:siteId" component={SingleSiteDetail} />
-              <Route path="/api/sites">
+              <Route exact path="/api/sites">
                 <Map />
                 <SitePreviewTile />
               </Route>

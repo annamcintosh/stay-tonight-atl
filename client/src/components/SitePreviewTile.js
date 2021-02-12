@@ -31,17 +31,15 @@ class SitePreviewTile extends Component {
               zipcode,
               siteId,
             }) => (
-              <Card body className="text-center">
-                <CardTitle tag="h5">{siteName}</CardTitle>
-                <CardText>{phone}</CardText>
-                <CardText>{address}</CardText>
-                <CardText>{`${city}, ${stateName} ${zipcode}`}</CardText>
-                {/* <Button onClick={this.handleClick}>More Information</Button> */}
+              <Card body className="text-center" key={`${siteId}body`}>
+                <CardTitle tag="h5" key={`${siteId}name`}>{siteName}</CardTitle>
+                <CardText key={`${siteId}phone`}>{phone}</CardText>
+                <CardText key={`${siteId}address`}>{address}</CardText>
+                <CardText key={`${siteId}city`}>{`${city}, ${stateName} ${zipcode}`}</CardText>
                 <Link to={`/api/sites/${siteId}`}>More Information</Link>
               </Card>
             )
           )}
-          {/* <Route path="api/sites/:id" component={SingleSiteDetail} /> */}
         </CardColumns>
         <p className="text-center">
           Don't see your shelter? Register or log in to add it!

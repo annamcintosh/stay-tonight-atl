@@ -9,11 +9,11 @@ const SiteList = ({ sites }) => {
       ) : (
         sites.map((site) => (
           <SitePreviewTile
-            key={site.id}
+            key={site.siteId}
             name={site.name}
             phone={site.phone}
             address={site.address}
-            id={site.id}
+            id={site.siteId}
           />
         ))
       )}

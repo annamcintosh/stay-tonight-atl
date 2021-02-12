@@ -72,7 +72,7 @@ async function updateOneSiteController(req, res) {
 async function deleteOneSiteController(req, res) {
   try {
     const site = await deleteSite(req.params.siteId);
-    res.send({body: "site deleted"})
+    res.send(req.params.siteId)
   } catch (err) {
     return { error: err }
   }

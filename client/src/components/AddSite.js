@@ -20,14 +20,13 @@ import { Link } from "react-router-dom";
 class AddSite extends Component {
   state = {
     userId: "",
-    siteName: "",
     msg: null,
   };
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    // auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
+    // register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
   };
 
@@ -47,8 +46,12 @@ class AddSite extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onCheck = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   onSubmit = (e) => {
-    const { isAuthenticated } = this.props.auth;
+    // const { isAuthenticated } = this.props.auth;
     e.preventDefault();
 
     const siteId = uuidv4();
@@ -79,7 +82,7 @@ class AddSite extends Component {
       phone,
     } = this.state;
 
-    // Create user object
+    // Create site object
     const newSite = {
       siteId,
       userId,
@@ -107,11 +110,13 @@ class AddSite extends Component {
       phone,
     };
 
-    //Attempt to add site
-    if (!isAuthenticated) {
-      this.props.addsite(newSite);
-    } else {
-    }
+    // //Attempt to add site
+    // if (!isAuthenticated) {
+    //   this.props.addsite(newSite);
+    // } else {
+    // }
+
+    this.props.addSite(newSite);
   };
 
   render() {
@@ -121,11 +126,11 @@ class AddSite extends Component {
           <h1 className="mb-4">Add a New Place to Stay</h1>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
-              <Label for="name">Shelter Name</Label>
+              <Label for="siteName">Shelter Name</Label>
               <Input
                 type="text"
-                name="name"
-                id="name"
+                name="siteName"
+                id="siteName"
                 placeholder="Name"
                 onChange={this.onChange}
                 className="mb-4"
@@ -136,39 +141,51 @@ class AddSite extends Component {
               <div className="mb-4 ml-3">
                 <CustomInput
                   type="checkbox"
+                  name="women"
                   id="women"
                   label="Women Welcome"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="youth"
                   id="youth"
                   label="Youth Welcome"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
-                  id="Men"
+                  name="men"
+                  id="men"
                   label="Men Welcome"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="lgbtq"
                   id="lgbtq"
                   label="LGBTQ+ Welcome"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="family"
                   id="family"
                   label="Families Welcome"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="pets"
                   id="pets"
                   label="Pet Friendly"
                   inline
+                  onChange={this.onCheck}
                 />
               </div>
             </FormGroup>
@@ -239,45 +256,59 @@ class AddSite extends Component {
               <div className="mb-4">
                 <CustomInput
                   type="checkbox"
+                  name="sunday"
                   id="sunday"
                   label="Sunday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="monday"
                   id="monday"
                   label="Monday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="monday"
                   id="tuesday"
                   label="Tuesday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="wednesday"
                   id="wednesday"
                   label="Wednesday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="thursday"
                   id="thursday"
                   label="Thursday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="friday"
                   id="friday"
                   label="Friday"
                   inline
+                  onChange={this.onCheck}
                 />
                 <CustomInput
                   type="checkbox"
+                  name="saturday"
                   id="saturday"
                   label="Saturday"
                   inline
+                  onChange={this.onCheck}
                 />
               </div>
             </FormGroup>
@@ -285,7 +316,7 @@ class AddSite extends Component {
               <Label for="details">Details</Label>
               <Input
                 type="textarea"
-                name="text"
+                name="details"
                 id="details"
                 onChange={this.onChange}
                 placeholder="Tell us more about this site. Do you need identification to stay here? What time do you need to arrive? What services are available?"

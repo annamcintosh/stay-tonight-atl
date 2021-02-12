@@ -27,8 +27,7 @@ export default function siteReducer(state = initialState, action) {
       };
     case DELETE_SITE:
       return {
-        ...state,
-        sites: state.sites.filter((site) => site.siteId !== action.payload),
+        ...state
       };
     case ADD_SITE:
       return {

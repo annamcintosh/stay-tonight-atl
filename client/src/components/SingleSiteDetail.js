@@ -8,12 +8,13 @@ import {
   ListGroupItemHeading,
   ListGroupItemText,
 } from "reactstrap";
-import { getSite } from "../actions/siteActions";
+import { getSite, deleteSite } from "../actions/siteActions";
 import PropTypes from "prop-types";
 
 class SingleSiteDetail extends Component {
   static propTypes = {
     getSite: PropTypes.func.isRequired,
+    deleteSite: PropTypes.func.isRequired,
     site: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
   };
@@ -21,6 +22,15 @@ class SingleSiteDetail extends Component {
   componentDidMount() {
     this.props.getSite(this.props.match.params.siteId);
   }
+
+  handleDelete = (e) => {
+    e.preventDefault();
+    // const { sites } = this.props.site;
+    // const { siteId } = sites;
+    const siteId = (`${this.props.match.params.siteId}`)
+    this.props.deleteSite(siteId);
+    console.log("Shelter Deleted", siteId);
+  };
 
   render() {
     const { isAuthenticated } = this.props.auth;
@@ -108,7 +118,7 @@ class SingleSiteDetail extends Component {
               <Button color="dark" className="mr-3" onClick={this.toggleModal}>
                 Edit This Shelter
               </Button>
-              <Button color="dark" className="mr-3" onClick={this.toggleModal}>
+              <Button color="dark" className="mr-3" onClick={this.handleDelete}>
                 Delete This Shelter
               </Button>
             </div>
@@ -124,4 +134,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getSite })(SingleSiteDetail);
+export default connect(mapStateToProps, { getSite, deleteSite })(SingleSiteDetail);
