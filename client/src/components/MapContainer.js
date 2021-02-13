@@ -112,9 +112,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getSites }, GoogleApiWrapper({
-  apiKey: "AIzaSyDjWXgo1EkWaziflvTfPoHLdQ5srH61eiw",
+  apiKey: "proccess.env.MAPS_API",
 }))(MapContainer);
 
 // export default GoogleApiWrapper({
-//   apiKey: "AIzaSyDjWXgo1EkWaziflvTfPoHLdQ5srH61eiw",
+//   apiKey: "proccess.env.MAPS_API",
 // })(MapContainer);
