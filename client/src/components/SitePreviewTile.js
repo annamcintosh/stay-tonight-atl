@@ -20,7 +20,6 @@ class SitePreviewTile extends Component {
     return (
       <Container>
         <CardColumns>
-          {/* <pre>{JSON.stringify(this.props, null, 2)}</pre> */}
           {sites.map(
             ({
               siteName,
@@ -32,10 +31,14 @@ class SitePreviewTile extends Component {
               siteId,
             }) => (
               <Card body className="text-center" key={`${siteId}body`}>
-                <CardTitle tag="h5" key={`${siteId}name`}>{siteName}</CardTitle>
+                <CardTitle tag="h5" key={`${siteId}name`}>
+                  {siteName}
+                </CardTitle>
                 <CardText key={`${siteId}phone`}>{phone}</CardText>
                 <CardText key={`${siteId}address`}>{address}</CardText>
-                <CardText key={`${siteId}city`}>{`${city}, ${stateName} ${zipcode}`}</CardText>
+                <CardText
+                  key={`${siteId}city`}
+                >{`${city}, ${stateName} ${zipcode}`}</CardText>
                 <Link to={`/api/sites/${siteId}`}>More Information</Link>
               </Card>
             )

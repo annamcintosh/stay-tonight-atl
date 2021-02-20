@@ -4,7 +4,7 @@ import { getSites } from "../actions/siteActions";
 import PropTypes from "prop-types";
 // import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// require("dotenv").config();
+require("dotenv").config();
 
 class MapContainer extends Component {
   state = {
@@ -126,10 +126,10 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { getSites })(
   GoogleApiWrapper({
-    apiKey: "",
+    apiKey: process.env.MAP_API,
   })(MapContainer)
 );
 
 // export default GoogleApiWrapper({
-//   apiKey: "",
+//   apiKey: process.env.MAP_API,
 // })(MapContainer);

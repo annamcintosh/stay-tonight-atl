@@ -16,49 +16,26 @@ import PropTypes from "prop-types";
 import { addSite } from "../actions/siteActions";
 import { clearErrors } from "../actions/errorActions";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 // import axios from "axios";
-
-const Checkbox = ({ name, id, checked = false, onChange }) => (
-  <CustomInput
-    type="checkbox"
-    id={id}
-    name={name}
-    checked={checked}
-    onChange={onChange}
-    inline
-  />
-);
 
 class AddSite extends Component {
   state = {
     userId: "",
     msg: null,
-    boundaryCheckboxes: [
-      { id: "women", name: "women", label: "Women Welcome" },
-      { id: "men", name: "men", label: "Men Welcome" },
-      { id: "lgbtq", name: "lgbtq", label: "LGBTQ+ Welcome" },
-      {
-        id: "family",
-        name: "family",
-        label: "Families Welcome",
-      },
-      { id: "youth", name: "youth", label: "Youth Welcome" },
-      { id: "pets", name: "pets", label: "Pet Friendly" },
-    ],
-    dayCheckboxes: [
-      { id: "sunday", name: "sunday", label: "Sunday" },
-      { id: "monday", name: "monday", label: "Monday" },
-      { id: "tuesday", name: "tuesday", label: "Tuesday" },
-      {
-        id: "wednesday",
-        name: "wednesday",
-        label: "Wednesday",
-      },
-      { id: "thursday", name: "thursday", label: "Thursday" },
-      { id: "friday", name: "friday", label: "Friday" },
-      { id: "saturday", name: "saturday", label: "Saturday" },
-    ],
-    checkedItems: new Map(),
+    women: false,
+    men: false,
+    lgbtq: false,
+    family: false,
+    youth: false,
+    pets: false,
+    sunday: false,
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
   };
 
   static propTypes = {
@@ -67,7 +44,7 @@ class AddSite extends Component {
     // register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     checked: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   componentDidUpdate(prevProps) {
@@ -83,16 +60,14 @@ class AddSite extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
 
-  onCheck = (e) => {
-    const item = e.target.name;
-    const isChecked = e.target.checked;
-    this.setState((prevState) => ({
-      checkedItems: prevState.checkedItems.set(item, isChecked),
-    }));
-  }
+    this.setState({
+      [name]: value,
+    });
+  };
 
   // handleGeocoding = (address) => {
   //   const google = window.google;
@@ -193,6 +168,7 @@ class AddSite extends Component {
     // }
 
     this.props.addSite(newSite);
+    this.props.history.push("/api/sites");
   };
 
   render() {
@@ -215,17 +191,60 @@ class AddSite extends Component {
             <FormGroup>
               <Label for="welcome">Boundaries (Select All That Apply):</Label>
               <div className="mb-4 ml-3">
-                {this.state.boundaryCheckboxes.map((item) => (
-                  <label key={item.id}>
-                    {item.label}
-                    <Checkbox
-                      id={item.id}
-                      name={item.name}
-                      checked={this.state.checkedItems.get(item.name)}
-                      onChange={this.onCheck}
-                    />
-                  </label>
-                ))}
+                <CustomInput
+                  type="checkbox"
+                  label="Women Welcome"
+                  id="women"
+                  name="women"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Men Welcome"
+                  id="men"
+                  name="men"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="LGBTQ+ Welcome"
+                  id="lgbtq"
+                  name="lgbtq"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Families Welcome"
+                  id="family"
+                  name="family"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Youth Welcome"
+                  id="youth"
+                  name="youth"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Pet Friendly"
+                  id="pets"
+                  name="pets"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
               </div>
             </FormGroup>
             <Row form>
@@ -293,17 +312,69 @@ class AddSite extends Component {
             <FormGroup>
               <Label for="daysCheckbox">Days Open:</Label>
               <div className="mb-4">
-                {this.state.dayCheckboxes.map((item) => (
-                  <label key={item.id}>
-                    {item.label}
-                    <Checkbox
-                      id={item.id}
-                      name={item.name}
-                      checked={this.state.checkedItems.get(item.name)}
-                      onChange={this.onCheck}
-                    />
-                  </label>
-                ))}
+                <CustomInput
+                  type="checkbox"
+                  label="Sunday"
+                  id="sunday"
+                  name="sunday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Monday"
+                  id="monday"
+                  name="monday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Tuesday"
+                  id="tuesday"
+                  name="tuesday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Wednesday"
+                  id="wednesday"
+                  name="wednesday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Thursday"
+                  id="thursday"
+                  name="thursday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Friday"
+                  id="friday"
+                  name="friday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
+                <CustomInput
+                  type="checkbox"
+                  label="Saturday"
+                  id="saturday"
+                  name="saturday"
+                  checked={this.state.checked}
+                  onChange={this.onChange}
+                  inline
+                />
               </div>
             </FormGroup>
             <FormGroup>
@@ -339,4 +410,6 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { addSite, clearErrors })(AddSite);
+export default withRouter(
+  connect(mapStateToProps, { addSite, clearErrors })(AddSite)
+);

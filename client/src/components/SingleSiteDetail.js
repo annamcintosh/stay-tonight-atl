@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import { getSite, deleteSite } from "../actions/siteActions";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 class SingleSiteDetail extends Component {
   static propTypes = {
@@ -25,11 +26,9 @@ class SingleSiteDetail extends Component {
 
   handleDelete = (e) => {
     e.preventDefault();
-    // const { sites } = this.props.site;
-    // const { siteId } = sites;
-    const siteId = (`${this.props.match.params.siteId}`)
+    const siteId = `${this.props.match.params.siteId}`;
     this.props.deleteSite(siteId);
-    console.log("Shelter Deleted", siteId);
+    this.props.history.push("/api/sites");
   };
 
   render() {
@@ -134,4 +133,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getSite, deleteSite })(SingleSiteDetail);
+export default withRouter(
+  connect(mapStateToProps, { getSite, deleteSite })(SingleSiteDetail)
+);
