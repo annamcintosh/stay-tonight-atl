@@ -26,8 +26,8 @@ async function addUser(newUser) {
     };
     try {
       const data = await docClient.put(params).promise();
-      console.log(data);
-      return data;
+      console.log(newUser);
+      return newUser;
     } catch (err) {
       console.error(err);
     }
@@ -36,4 +36,5 @@ async function addUser(newUser) {
 
 //   exports.getUser = getUser;
   exports.addUser = addUser;
+
 

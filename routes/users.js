@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const {v4: uuidv4} = require("uuid");
-const { userController, registerController } = require("../controllers/userController");
+// const { userController, registerController } = require("../controllers/userController");
+const { getUser, addUser } = require("../services/userService");
 
 //@route POST api/sites
 //@description all sites
@@ -19,7 +20,7 @@ router.post("/", (req, res) => {
   }
 
 //   //Check for existing user
-//   userController({ email }) //GET USER CONTROLLER
+//   getUser({ email }) //GET USER CONTROLLER
 //     .then((user) => {
 //       if (user) return res.status(400).json({ msg: "User already exists" });
 
@@ -36,7 +37,7 @@ router.post("/", (req, res) => {
           if (err) throw err;
           newUser.password = hash;
           console.log("newUserinBCRYPT=", newUser)
-          registerController(newUser)
+          return addUser(newUser)
             .then((user) => {
               jwt.sign(
                 { id: user.id },
