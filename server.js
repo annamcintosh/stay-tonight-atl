@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/sites", require("./routes/sites"));
-// app.use("/api/users", require("./routes/users"));
-// app.use("/api/auth", require("./routes/auth.js"));
+app.use("/api/users", require("./routes/users"));
+// app.use("/api/auth", require("./routes/auth"));
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
