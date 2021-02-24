@@ -32,7 +32,6 @@ async function allSitesController(req, res) {
 async function singleSiteController(req, res) {
   try {
     const site = await getSite(req.params.siteId);
-    console.log(req.params.siteId);
     res.send(site);
   } catch (err) {
     return { error: err };
@@ -45,7 +44,6 @@ async function singleSiteController(req, res) {
 async function addOneSiteController(req, res) {
   try {
     const site = await addSite(req.body);
-    console.log(req.body);
     res.send(site);
   } catch (err) {
     return { error: err };
@@ -58,7 +56,6 @@ async function addOneSiteController(req, res) {
 async function updateOneSiteController(req, res) {
   try {
     const site = await addSite(req.body);
-    console.log(req.body);
     res.send(site);
   } catch (err) {
     return { error: err };
@@ -72,7 +69,6 @@ async function updateOneSiteController(req, res) {
 async function deleteOneSiteController(req, res) {
   try {
     const site = await deleteSite(req.params.siteId);
-    res.send(req.params.siteId)
   } catch (err) {
     return { error: err }
   }

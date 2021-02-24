@@ -6,7 +6,7 @@ import {
   SITES_LOADING,
 } from "./types";
 import axios from "axios";
-// import { tokenConfig } from "./authActions";
+import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
 export const getSites = () => (dispatch) => {
@@ -39,24 +39,9 @@ export const getSite = (siteId) => (dispatch) => {
     );
 };
 
-export const addSite = (newSite) => (dispatch) => {
-  axios
-    .post("/api/sites/add", newSite)
-    .then((res) =>
-      dispatch({
-        type: ADD_SITE,
-        payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
-};
-
-// ADDSITE WITH TOKEN
-// export const addSite = (newSite) => (dispatch, getState) => {
+// export const addSite = (newSite) => (dispatch) => {
 //   axios
-//     .post("/api/sites/add", newSite, tokenConfig(getState))
+//     .post("/api/sites/add", newSite)
 //     .then((res) =>
 //       dispatch({
 //         type: ADD_SITE,
@@ -68,12 +53,13 @@ export const addSite = (newSite) => (dispatch) => {
 //     );
 // };
 
-export const deleteSite = (siteId) => (dispatch) => {
+// ADDSITE WITH TOKEN
+export const addSite = (newSite) => (dispatch, getState) => {
   axios
-    .delete(`/api/sites/${siteId}`)
+    .post("/api/sites/add", newSite, tokenConfig(getState))
     .then((res) =>
       dispatch({
-        type: DELETE_SITE,
+        type: ADD_SITE,
         payload: res.data,
       })
     )
@@ -82,20 +68,34 @@ export const deleteSite = (siteId) => (dispatch) => {
     );
 };
 
-// DELETESITE WITH TOKEN
-// export const deleteSite = (siteId) => (dispatch, getState) => {
+// export const deleteSite = (siteId) => (dispatch) => {
 //   axios
-//     .delete(`api/sites/${siteId}`, tokenConfig(getState))
+//     .delete(`/api/sites/${siteId}`)
 //     .then((res) =>
 //       dispatch({
 //         type: DELETE_SITE,
-//         payload: siteId,
+//         payload: res.data,
 //       })
 //     )
 //     .catch((err) =>
 //       dispatch(returnErrors(err.response.data, err.response.status))
 //     );
 // };
+
+// DELETESITE WITH TOKEN
+export const deleteSite = (siteId) => (dispatch, getState) => {
+  axios
+    .delete(`api/sites/${siteId}`, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: DELETE_SITE,
+        payload: siteId,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
 
 export const setSitesLoading = () => {
   return {

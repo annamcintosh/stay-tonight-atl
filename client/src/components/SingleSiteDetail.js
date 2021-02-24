@@ -112,7 +112,7 @@ class SingleSiteDetail extends Component {
           <h3>About This Shelter:</h3>
           <p className="lead">{details}</p>
 
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <div>
               <Button color="dark" className="mr-3" onClick={this.toggleModal}>
                 Edit This Shelter

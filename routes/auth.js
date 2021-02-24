@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
-const { getUser } = require("../services/authService");
+const { loginUser, getUserById } = require("../services/authService");
 
 //@route POST api/auth
 //@description authenticate user
@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
   }
 
   //Check for existing user
-  return getUser({ email }).then((user) => {
+  return loginUser({ email }).then((user) => {
     if (!user) return res.status(400).json({ msg: "User does not exist" });
 
     //Validate password
@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
       if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
       jwt.sign(
-        { id: user.id },
+        { id: user.email },
         config.get("jwtSecret"),
         { expiresIn: 3600 },
         (err, token) => {
@@ -49,9 +49,14 @@ router.post("/", (req, res) => {
 //@description get user data
 //@access private
 router.get("/user", auth, (req, res) => {
-  User.findById(req.user.id)
-    .select("-password")
-    .then((user) => res.json(user));
+  return getUserById(req.user.id).then((user) =>
+    res.json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    )
+  );
 });
 
 module.exports = router;

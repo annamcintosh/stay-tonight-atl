@@ -39,9 +39,9 @@ class AddSite extends Component {
   };
 
   static propTypes = {
-    // auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    // register: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     onChange: PropTypes.func,
@@ -98,11 +98,11 @@ class AddSite extends Component {
   // };
 
   onSubmit = (e) => {
-    // const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     e.preventDefault();
 
     const siteId = uuidv4();
-    const userId = uuidv4();
+    const userId = user.id
 
     const {
       youth,
@@ -162,12 +162,11 @@ class AddSite extends Component {
     };
 
     // //Attempt to add site
-    // if (!isAuthenticated) {
-    //   this.props.addsite(newSite);
-    // } else {
-    // }
+    if (isAuthenticated) {
+      this.props.addsite(newSite);
+    }
 
-    this.props.addSite(newSite);
+    // this.props.addSite(newSite);
     this.props.history.push("/api/sites");
   };
 

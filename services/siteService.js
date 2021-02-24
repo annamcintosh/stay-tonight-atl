@@ -24,7 +24,6 @@ async function addSite(siteInfo) {
   };
   try {
     const data = await docClient.put(params).promise();
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);

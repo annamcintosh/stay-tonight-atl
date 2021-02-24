@@ -13,6 +13,7 @@ import SingleSiteDetail from "./components/SingleSiteDetail";
 
 class App extends Component {
   componentDidMount() {
+    console.log("Hello from App - the component mounted")
     store.dispatch(loadUser());
   }
 
