@@ -26,7 +26,9 @@ class SingleSiteDetail extends Component {
 
   handleDelete = (e) => {
     e.preventDefault();
+    console.log("handleDelete was called!")
     const siteId = `${this.props.match.params.siteId}`;
+    console.log(this.props.match.params.siteId)
     this.props.deleteSite(siteId);
     this.props.history.push("/api/sites");
   };
@@ -114,9 +116,9 @@ class SingleSiteDetail extends Component {
 
           {isAuthenticated ? (
             <div>
-              <Button color="dark" className="mr-3" onClick={this.toggleModal}>
+              {/* <Button color="dark" className="mr-3" onClick={this.toggleModal}>
                 Edit This Shelter
-              </Button>
+              </Button> */}
               <Button color="dark" className="mr-3" onClick={this.handleDelete}>
                 Delete This Shelter
               </Button>

@@ -11,9 +11,8 @@ import {
   Container,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
-import { addSite } from "../actions/siteActions";
+import { addSite, getSite } from "../actions/siteActions";
 import { clearErrors } from "../actions/errorActions";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -39,13 +38,19 @@ class AddSite extends Component {
   };
 
   static propTypes = {
-    // auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    // register: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     onChange: PropTypes.func,
+    getSite: PropTypes.func.isRequired,
+    site: PropTypes.object.isRequired,
   };
+
+  componentDidMount() {
+    this.props.getSite(this.props.match.params.siteId);
+  }
 
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -70,11 +75,9 @@ class AddSite extends Component {
   };
 
   onSubmit = (e) => {
-    // const { user } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
+    const { sites } = this.props.site;
     e.preventDefault();
-
-    const siteId = uuidv4();
-    // const userId = user.id
 
     const {
       youth,
@@ -99,6 +102,9 @@ class AddSite extends Component {
       phone,
     } = this.state;
 
+    const siteId = sites.siteId;
+    const userId = user.id;
+
     // const fullAddress = `${address} ${city} ${stateName} ${zipcode}`;
 
     // const position = this.handleGeocodingRequest(fullAddress);
@@ -108,7 +114,7 @@ class AddSite extends Component {
     // Create site object
     const newSite = {
       siteId,
-      // userId,
+      userId,
       youth,
       thursday,
       monday,
@@ -132,15 +138,44 @@ class AddSite extends Component {
     };
 
     // //Attempt to add site
-    this.props.addSite(newSite);
+    if (isAuthenticated) {
+      this.props.addsite(newSite);
+    }
+
+    // this.props.addSite(newSite);
     this.props.history.push("/api/sites");
   };
 
   render() {
+    const { sites } = this.props.site;
+    const {
+      siteName,
+      siteId,
+      phone,
+      address,
+      stateName,
+      city,
+      zipcode,
+    //   youth,
+    //   thursday,
+    //   monday,
+    //   women,
+    //   tuesday,
+    //   wednesday,
+    //   friday,
+    //   lgbtq,
+    //   sunday,
+    //   pets,
+    //   men,
+    //   saturday,
+      details,
+    //   family,
+    } = sites;
+
     return (
       <div>
         <Container>
-          <h1 className="mb-4">Add a New Place to Stay</h1>
+          <h1 className="mb-4">Edit {siteName}</h1>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
               <Label for="siteName">Shelter Name</Label>
@@ -148,7 +183,7 @@ class AddSite extends Component {
                 type="text"
                 name="siteName"
                 id="siteName"
-                placeholder="Name"
+                placeholder={siteName}
                 onChange={this.onChange}
                 className="mb-4"
               />
@@ -220,7 +255,7 @@ class AddSite extends Component {
                     type="text"
                     name="phone"
                     id="phone"
-                    placeholder="123-456-7890"
+                    placeholder={phone}
                     onChange={this.onChange}
                     className="mb-4"
                   />
@@ -233,7 +268,7 @@ class AddSite extends Component {
                 type="text"
                 name="address"
                 id="address"
-                placeholder="1234 Main St"
+                placeholder={address}
                 onChange={this.onChange}
                 className="mb-4"
               />
@@ -246,6 +281,7 @@ class AddSite extends Component {
                     type="text"
                     name="city"
                     id="city"
+                    placeholder={city}
                     onChange={this.onChange}
                     className="mb-4"
                   />
@@ -257,6 +293,7 @@ class AddSite extends Component {
                   <Input
                     type="text"
                     name="stateName"
+                    placeholder={stateName}
                     onChange={this.onChange}
                     id="stateName"
                   />
@@ -268,6 +305,7 @@ class AddSite extends Component {
                   <Input
                     type="text"
                     name="zipcode"
+                    placeholder={zipcode}
                     onChange={this.onChange}
                     id="zipcode"
                   />
@@ -349,7 +387,7 @@ class AddSite extends Component {
                 name="details"
                 id="details"
                 onChange={this.onChange}
-                placeholder="Tell us more about this site. Do you need identification to stay here? What time do you need to arrive? What services are available?"
+                placeholder={details}
                 className="mb-4"
               />
             </FormGroup>
@@ -357,11 +395,11 @@ class AddSite extends Component {
               <Button
                 color="dark"
                 className="mr-2"
-                onClick={this.onSubmit}
+                onClick={this.state.onSubmit}
               >
                 Submit
               </Button>
-              <Link to={"/api/sites"}>Cancel</Link>
+              <Link to={`/api/sites/${siteId}`}>Cancel</Link>
             </FormGroup>
           </Form>
         </Container>
@@ -371,7 +409,7 @@ class AddSite extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
   error: state.error,
 });
 

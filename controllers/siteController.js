@@ -62,15 +62,15 @@ async function updateOneSiteController(req, res) {
   }
 }
 
-
 //@route DELETE api/sites/:siteId
 //@description Delete a site
 //@access private
 async function deleteOneSiteController(req, res) {
   try {
     const site = await deleteSite(req.params.siteId);
+    res.send(site);
   } catch (err) {
-    return { error: err }
+    return { error: err };
   }
 }
 
