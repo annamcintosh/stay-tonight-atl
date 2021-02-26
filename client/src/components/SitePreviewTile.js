@@ -16,7 +16,14 @@ class SitePreviewTile extends Component {
   }
 
   render() {
-    const { sites } = this.props.site;
+    const { sites, loading } = this.props.site;
+    if (loading === true) {
+      return (
+        <h2 className="text-center">
+          One moment while we load the shelters, please
+        </h2>
+      );
+    }
     return (
       <Container>
         <CardColumns>

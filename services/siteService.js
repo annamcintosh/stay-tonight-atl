@@ -24,7 +24,7 @@ async function addSite(siteInfo) {
   };
   try {
     const data = await docClient.put(params).promise();
-    return data;
+    return siteInfo;
   } catch (err) {
     console.error(err);
   }
@@ -39,8 +39,7 @@ async function deleteSite(siteId) {
   };
   try {
     const data = await docClient.delete(params).promise();
-    const dataItem = data.Item;
-    return dataItem;
+    return siteId;
   } catch (err) {
     return err;
   }

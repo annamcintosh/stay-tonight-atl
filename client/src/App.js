@@ -10,7 +10,7 @@ import { loadUser } from "./actions/authActions";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddSite from "./components/AddSite";
 import SingleSiteDetail from "./components/SingleSiteDetail";
-// import EditSite from "./components/EditSite";
+import EditSite from "./components/EditSite";
 
 class App extends Component {
   componentDidMount() {
@@ -27,7 +27,7 @@ class App extends Component {
             </header>
             <Switch>
               <Route exact path="/api/sites/add" component={AddSite} />
-              {/* <Route path="/api/sites/edit/:siteId" component={EditSite} /> */}
+              <Route path="/api/sites/edit/:siteId" component={EditSite} />
               <Route path="/api/sites/:siteId" component={SingleSiteDetail} />
               <Route exact path="/api/sites">
                 <Map />

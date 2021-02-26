@@ -29,11 +29,13 @@ export default function siteReducer(state = initialState, action) {
       return {
         ...state,
         sites: state.sites.filter((site) => site.siteId !== action.payload),
+        loading: false,
       };
     case ADD_SITE:
       return {
         ...state,
         sites: [action.payload, ...state.sites],
+        loading: false
       };
     case SITES_LOADING:
       return {

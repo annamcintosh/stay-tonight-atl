@@ -21,7 +21,6 @@ import { withRouter } from "react-router-dom";
 
 class AddSite extends Component {
   state = {
-    userId: "",
     msg: null,
     women: false,
     men: false,
@@ -39,9 +38,8 @@ class AddSite extends Component {
   };
 
   static propTypes = {
-    // auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    // register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     onChange: PropTypes.func,
@@ -70,11 +68,11 @@ class AddSite extends Component {
   };
 
   onSubmit = (e) => {
-    // const { user } = this.props.auth;
+    const { user } = this.props.auth;
     e.preventDefault();
 
     const siteId = uuidv4();
-    // const userId = user.id
+    const userId = user.id;
 
     const {
       youth,
@@ -108,7 +106,7 @@ class AddSite extends Component {
     // Create site object
     const newSite = {
       siteId,
-      // userId,
+      userId,
       youth,
       thursday,
       monday,
@@ -131,8 +129,8 @@ class AddSite extends Component {
       phone,
     };
 
-    // //Attempt to add site
-    this.props.addSite(newSite);
+    // //Add site
+    this.props.addSite(newSite)
     this.props.history.push("/api/sites");
   };
 
@@ -354,11 +352,7 @@ class AddSite extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Button
-                color="dark"
-                className="mr-2"
-                onClick={this.onSubmit}
-              >
+              <Button color="dark" className="mr-2" onClick={this.onSubmit}>
                 Submit
               </Button>
               <Link to={"/api/sites"}>Cancel</Link>
@@ -371,7 +365,7 @@ class AddSite extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
   error: state.error,
 });
 

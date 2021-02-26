@@ -18,29 +18,14 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import axios from "axios";
 
-class AddSite extends Component {
+class EditSite extends Component {
   state = {
-    userId: "",
-    msg: null,
-    women: false,
-    men: false,
-    lgbtq: false,
-    family: false,
-    youth: false,
-    pets: false,
-    sunday: false,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
+    msg: null
   };
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     onChange: PropTypes.func,
@@ -50,6 +35,52 @@ class AddSite extends Component {
 
   componentDidMount() {
     this.props.getSite(this.props.match.params.siteId);
+    const {
+      siteName,
+      siteId,
+      phone,
+      address,
+      stateName,
+      city,
+      zipcode,
+      youth,
+      thursday,
+      monday,
+      women,
+      tuesday,
+      wednesday,
+      friday,
+      lgbtq,
+      sunday,
+      pets,
+      men,
+      saturday,
+      details,
+      family,
+    } = this.props.site.sites;
+    this.setState({
+      siteName,
+      siteId,
+      phone,
+      address,
+      stateName,
+      city,
+      zipcode,
+      youth,
+      thursday,
+      monday,
+      women,
+      tuesday,
+      wednesday,
+      friday,
+      lgbtq,
+      sunday,
+      pets,
+      men,
+      saturday,
+      details,
+      family,
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -75,8 +106,7 @@ class AddSite extends Component {
   };
 
   onSubmit = (e) => {
-    const { isAuthenticated, user } = this.props.auth;
-    const { sites } = this.props.site;
+    const { user } = this.props.auth;
     e.preventDefault();
 
     const {
@@ -100,10 +130,10 @@ class AddSite extends Component {
       details,
       family,
       phone,
+      siteId
     } = this.state;
 
-    const siteId = sites.siteId;
-    const userId = user.id;
+    const editUserId = user.id;
 
     // const fullAddress = `${address} ${city} ${stateName} ${zipcode}`;
 
@@ -114,7 +144,7 @@ class AddSite extends Component {
     // Create site object
     const newSite = {
       siteId,
-      userId,
+      editUserId,
       youth,
       thursday,
       monday,
@@ -137,45 +167,15 @@ class AddSite extends Component {
       phone,
     };
 
-    // //Attempt to add site
-    if (isAuthenticated) {
-      this.props.addsite(newSite);
-    }
-
-    // this.props.addSite(newSite);
+    this.props.addSite(newSite);
     this.props.history.push("/api/sites");
   };
 
   render() {
-    const { sites } = this.props.site;
-    const {
-      siteName,
-      siteId,
-      phone,
-      address,
-      stateName,
-      city,
-      zipcode,
-    //   youth,
-    //   thursday,
-    //   monday,
-    //   women,
-    //   tuesday,
-    //   wednesday,
-    //   friday,
-    //   lgbtq,
-    //   sunday,
-    //   pets,
-    //   men,
-    //   saturday,
-      details,
-    //   family,
-    } = sites;
-
     return (
       <div>
         <Container>
-          <h1 className="mb-4">Edit {siteName}</h1>
+          <h1 className="mb-4">Edit {this.state.siteName}</h1>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
               <Label for="siteName">Shelter Name</Label>
@@ -183,7 +183,7 @@ class AddSite extends Component {
                 type="text"
                 name="siteName"
                 id="siteName"
-                placeholder={siteName}
+                value={this.state.siteName}
                 onChange={this.onChange}
                 className="mb-4"
               />
@@ -196,7 +196,7 @@ class AddSite extends Component {
                   label="Women Welcome"
                   id="women"
                   name="women"
-                  checked={this.state.checked}
+                  checked={this.state.women}
                   onChange={this.onChange}
                   inline
                 />
@@ -205,7 +205,7 @@ class AddSite extends Component {
                   label="Men Welcome"
                   id="men"
                   name="men"
-                  checked={this.state.checked}
+                  checked={this.state.men}
                   onChange={this.onChange}
                   inline
                 />
@@ -214,7 +214,7 @@ class AddSite extends Component {
                   label="LGBTQ+ Welcome"
                   id="lgbtq"
                   name="lgbtq"
-                  checked={this.state.checked}
+                  checked={this.state.lgbtq}
                   onChange={this.onChange}
                   inline
                 />
@@ -223,7 +223,7 @@ class AddSite extends Component {
                   label="Families Welcome"
                   id="family"
                   name="family"
-                  checked={this.state.checked}
+                  checked={this.state.family}
                   onChange={this.onChange}
                   inline
                 />
@@ -232,7 +232,7 @@ class AddSite extends Component {
                   label="Youth Welcome"
                   id="youth"
                   name="youth"
-                  checked={this.state.checked}
+                  checked={this.state.youth}
                   onChange={this.onChange}
                   inline
                 />
@@ -241,7 +241,7 @@ class AddSite extends Component {
                   label="Pet Friendly"
                   id="pets"
                   name="pets"
-                  checked={this.state.checked}
+                  checked={this.state.pets}
                   onChange={this.onChange}
                   inline
                 />
@@ -255,7 +255,7 @@ class AddSite extends Component {
                     type="text"
                     name="phone"
                     id="phone"
-                    placeholder={phone}
+                    value={this.state.phone}
                     onChange={this.onChange}
                     className="mb-4"
                   />
@@ -268,7 +268,7 @@ class AddSite extends Component {
                 type="text"
                 name="address"
                 id="address"
-                placeholder={address}
+                value={this.state.address}
                 onChange={this.onChange}
                 className="mb-4"
               />
@@ -281,7 +281,7 @@ class AddSite extends Component {
                     type="text"
                     name="city"
                     id="city"
-                    placeholder={city}
+                    value={this.state.city}
                     onChange={this.onChange}
                     className="mb-4"
                   />
@@ -293,7 +293,7 @@ class AddSite extends Component {
                   <Input
                     type="text"
                     name="stateName"
-                    placeholder={stateName}
+                    value={this.state.stateName}
                     onChange={this.onChange}
                     id="stateName"
                   />
@@ -305,7 +305,7 @@ class AddSite extends Component {
                   <Input
                     type="text"
                     name="zipcode"
-                    placeholder={zipcode}
+                    value={this.state.zipcode}
                     onChange={this.onChange}
                     id="zipcode"
                   />
@@ -320,7 +320,7 @@ class AddSite extends Component {
                   label="Sunday"
                   id="sunday"
                   name="sunday"
-                  checked={this.state.checked}
+                  checked={this.state.sunday}
                   onChange={this.onChange}
                   inline
                 />
@@ -329,7 +329,7 @@ class AddSite extends Component {
                   label="Monday"
                   id="monday"
                   name="monday"
-                  checked={this.state.checked}
+                  checked={this.state.monday}
                   onChange={this.onChange}
                   inline
                 />
@@ -338,7 +338,7 @@ class AddSite extends Component {
                   label="Tuesday"
                   id="tuesday"
                   name="tuesday"
-                  checked={this.state.checked}
+                  checked={this.state.tuesday}
                   onChange={this.onChange}
                   inline
                 />
@@ -347,7 +347,7 @@ class AddSite extends Component {
                   label="Wednesday"
                   id="wednesday"
                   name="wednesday"
-                  checked={this.state.checked}
+                  checked={this.state.wednesday}
                   onChange={this.onChange}
                   inline
                 />
@@ -356,7 +356,7 @@ class AddSite extends Component {
                   label="Thursday"
                   id="thursday"
                   name="thursday"
-                  checked={this.state.checked}
+                  checked={this.state.thursday}
                   onChange={this.onChange}
                   inline
                 />
@@ -365,7 +365,7 @@ class AddSite extends Component {
                   label="Friday"
                   id="friday"
                   name="friday"
-                  checked={this.state.checked}
+                  checked={this.state.friday}
                   onChange={this.onChange}
                   inline
                 />
@@ -374,7 +374,7 @@ class AddSite extends Component {
                   label="Saturday"
                   id="saturday"
                   name="saturday"
-                  checked={this.state.checked}
+                  checked={this.state.saturday}
                   onChange={this.onChange}
                   inline
                 />
@@ -387,7 +387,7 @@ class AddSite extends Component {
                 name="details"
                 id="details"
                 onChange={this.onChange}
-                placeholder={details}
+                value={this.state.details}
                 className="mb-4"
               />
             </FormGroup>
@@ -399,7 +399,7 @@ class AddSite extends Component {
               >
                 Submit
               </Button>
-              <Link to={`/api/sites/${siteId}`}>Cancel</Link>
+              <Link to={`/api/sites/${this.state.siteId}`}>Cancel</Link>
             </FormGroup>
           </Form>
         </Container>
@@ -409,10 +409,11 @@ class AddSite extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
+  site: state.site,
   error: state.error,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { addSite, clearErrors })(AddSite)
+  connect(mapStateToProps, { getSite, addSite, clearErrors })(EditSite)
 );

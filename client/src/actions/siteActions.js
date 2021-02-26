@@ -41,6 +41,7 @@ export const getSite = (siteId) => (dispatch) => {
 
 // ADDSITE WITH TOKEN
 export const addSite = (newSite) => (dispatch, getState) => {
+  dispatch(setSitesLoading());
   axios
     .post("/api/sites/add", newSite, tokenConfig(getState))
     .then((res) =>
@@ -56,7 +57,7 @@ export const addSite = (newSite) => (dispatch, getState) => {
 
 // DELETESITE WITH TOKEN
 export const deleteSite = (siteId) => (dispatch, getState) => {
-  console.log("deleteSite in siteActions called", siteId)
+  dispatch(setSitesLoading());
   axios
     .delete(`/api/sites/${siteId}`, tokenConfig(getState))
     .then((res) =>
