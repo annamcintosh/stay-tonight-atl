@@ -38,7 +38,7 @@ class SingleSiteDetail extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    const { sites } = this.props.site;
+    const { sites, loading } = this.props.site;
     const {
       siteName,
       phone,
@@ -61,7 +61,9 @@ class SingleSiteDetail extends Component {
       details,
       family,
     } = sites;
-
+    if (loading === true) {
+      return <h2 className="text-center">Loading...</h2>
+    }
     return (
       <Container>
         <Jumbotron>

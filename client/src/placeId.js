@@ -1,18 +1,20 @@
-  // handleGeocoding = (address) => {
-  //   const google = window.google;
-  //   const geocoder = new google.maps.Geocoder();
-  //   geocoder.geocode({ address: address }, (results, status) => {
-  //     if (status === "OK") {
-  //       console.log(
-  //         "The position of the address is:",
-  //         results[0].geometry.placeId
-  //       );
-  //       return results[0].geometry.placeId;
-  //     } else {
-  //       alert("Geocode was not successful for the following reason: " + status);
-  //     }
-  //   });
-  // };
+  const handleGeocoding = (address) => {
+    const google = window.google;
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+        console.log(
+          "The position of the address is:",
+          results[0].geometry.placeId
+        );
+        return results[0].geometry.placeId;
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  };
+
+handleGeocoding("")
 
   // handleGeocodingRequest = (addressFormatted) => {
   //   axios
