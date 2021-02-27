@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 require("dotenv").config();
 
+const testObj = {
+  lat: 33.7638778,
+  lng: -84.3957609,
+};
+
 class MapContainer extends Component {
   state = {
     showingInfoWindow: false, // Hides or shows the InfoWindow
@@ -18,7 +23,6 @@ class MapContainer extends Component {
     site: PropTypes.object.isRequired,
     onClose: PropTypes.func,
     onMarkerClick: PropTypes.func,
-
   };
 
   componentDidMount() {
@@ -26,11 +30,27 @@ class MapContainer extends Component {
   }
 
   handleGeocoding(address) {
-    geocodeByAddress(address)
+    return geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-        console.log(`lat: ${lat}, lng: ${lng}`, address)
-        return ({ lat, lng })
+        const stringLatLng = JSON.stringify({ lat, lng });
+        const litLatLng = `lat: ${lat}, lng: ${lng}`;
+        const anotherLatLng = `lat: ${33.7638778}, lng: ${-84.3957609}`;
+        console.log(
+          { lat, lng },
+          anotherLatLng,
+          typeof litLatLng,
+          litLatLng,
+          address,
+          typeof stringLatLng,
+          stringLatLng,
+          typeof { lng }
+        );
+        const responseObj = {
+          lat,
+          lng,
+        };
+        return { responseObj };
       });
   }
 
@@ -80,14 +100,21 @@ class MapContainer extends Component {
             lng: -84.3902644,
           }}
         >
-          {sites.map(({ siteName, address, stateName, city, zipcode, siteId }) => (
-            <Marker
-              onClick={this.onMarkerClick}
-              name={siteName}
-              key={siteId}
-              position={this.handleGeocoding(`${address} ${city} ${stateName} ${zipcode}`)}
-            />
-          ))}
+          {sites.map(
+            ({ siteName, address, stateName, city, zipcode, siteId }) => {
+              const handleGeocodingResponse = this.handleGeocoding(
+                `${address} ${city} ${stateName} ${zipcode}`
+              );
+              return (
+                <Marker
+                  onClick={this.onMarkerClick}
+                  name={siteName}
+                  key={siteId}
+                  position={{ lat: 33.7638778, lng: -84.3957609 }}
+                />
+              );
+            }
+          )}
           {sites.map(
             ({
               siteName,
@@ -103,7 +130,7 @@ class MapContainer extends Component {
                 visible={this.state.showingInfoWindow}
                 onClose={this.onClose}
                 key={siteId}
-                position={this.handleGeocoding(`${address} ${city} ${stateName} ${zipcode}`)}
+                position={{ lat: 33.7638778, lng: -84.3957609 }}
               >
                 <div>
                   <h4 key={`${siteId}name`}>{siteName}</h4>

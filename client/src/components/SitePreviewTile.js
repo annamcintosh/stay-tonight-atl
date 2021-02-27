@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Card, CardTitle, CardText, CardColumns } from "reactstrap";
+import { Container, Card, CardTitle, CardText, CardColumns, Button } from "reactstrap";
 import { connect } from "react-redux";
 import { getSites } from "../actions/siteActions";
 import PropTypes from "prop-types";
@@ -46,6 +46,9 @@ class SitePreviewTile extends Component {
                 <CardText
                   key={`${siteId}city`}
                 >{`${city}, ${stateName} ${zipcode}`}</CardText>
+                <hr></hr>
+                <Button>View on Map</Button>
+                <hr></hr>
                 <Link to={`/api/sites/${siteId}`}>More Information</Link>
               </Card>
             )

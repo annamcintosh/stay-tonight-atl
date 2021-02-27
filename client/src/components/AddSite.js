@@ -130,9 +130,9 @@ class AddSite extends Component {
     };
 
     // //Add site
-    this.props.addSite(newSite)
+    this.props.addSite(newSite);
     this.props.history.push("/api/sites");
-  };
+  }
 
   render() {
     return (
