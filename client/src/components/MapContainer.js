@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { getSites } from "../actions/siteActions";
 import PropTypes from "prop-types";
-// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 require("dotenv").config();
 
@@ -16,10 +16,22 @@ class MapContainer extends Component {
   static propTypes = {
     getSites: PropTypes.func.isRequired,
     site: PropTypes.object.isRequired,
+    onClose: PropTypes.func,
+    onMarkerClick: PropTypes.func,
+
   };
 
   componentDidMount() {
     this.props.getSites();
+  }
+
+  handleGeocoding(address) {
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+        console.log(`lat: ${lat}, lng: ${lng}`, address)
+        return ({ lat, lng })
+      });
   }
 
   onMarkerClick = (props, marker, e) =>
@@ -39,12 +51,19 @@ class MapContainer extends Component {
   };
 
   render() {
-    const { sites } = this.props.site;
+    const { sites, loading } = this.props.site;
+    if (loading === true) {
+      return (
+        <h2 className="text-center">
+          One moment while we load the map, please.
+        </h2>
+      );
+    }
     return (
       <div
         style={{
           position: "relative",
-          marginLeft: "25%",
+          marginLeft: "17%",
           width: "10vw",
           height: "80vh",
         }}
@@ -61,29 +80,17 @@ class MapContainer extends Component {
             lng: -84.3902644,
           }}
         >
+          {sites.map(({ siteName, address, stateName, city, zipcode, siteId }) => (
+            <Marker
+              onClick={this.onMarkerClick}
+              name={siteName}
+              key={siteId}
+              position={this.handleGeocoding(`${address} ${city} ${stateName} ${zipcode}`)}
+            />
+          ))}
           {sites.map(
             ({
               siteName,
-              latitude,
-              longitude,
-              siteId,
-            }) => (
-              <Marker
-                onClick={this.onMarkerClick = this.onMarkerClick.bind(this)}
-                name={siteName}
-                key={siteId}
-                position={{
-                  lat: parseFloat(latitude),
-                  lng: parseFloat(longitude),
-                }}
-              />
-            )
-          )}
-          {sites.map(
-            ({
-              siteName,
-              latitude,
-              longitude,
               phone,
               address,
               stateName,
@@ -92,24 +99,21 @@ class MapContainer extends Component {
               siteId,
             }) => (
               <InfoWindow
-                // marker={this.state.activeMarker}
+                marker={this.state.activeMarker}
                 visible={this.state.showingInfoWindow}
                 onClose={this.onClose}
                 key={siteId}
-                position={{
-                  lat: parseFloat(latitude),
-                  lng: parseFloat(longitude),
-                }}
+                position={this.handleGeocoding(`${address} ${city} ${stateName} ${zipcode}`)}
               >
                 <div>
                   <h4 key={`${siteId}name`}>{siteName}</h4>
-                  {/* <h5 key={`${siteId}phone`}>{phone}</h5>
+                  <h5 key={`${siteId}phone`}>{phone}</h5>
                   <h5 key={`${siteId}addressone`}>{address}</h5>
                   <h5 key={`${siteId}addresstwo`}>
                     {" "}
                     {`${city}, ${stateName} ${zipcode}`}
-                  </h5> */}
-                  {/* <Link to={`/api/sites/${siteId}`}>More Information</Link> */}
+                  </h5>
+                  <a href={`/api/sites/${siteId}`}>More Information</a>
                 </div>
               </InfoWindow>
             )
@@ -126,7 +130,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { getSites })(
   GoogleApiWrapper({
-    apiKey: process.env.MAP_API,
+    apiKey: process.env.REACT_APP_API_KEY,
   })(MapContainer)
 );
 
