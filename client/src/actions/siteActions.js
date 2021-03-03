@@ -5,20 +5,34 @@ import {
   DELETE_SITE,
   SITES_LOADING,
 } from "./types";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
+import { retrieveSiteData } from "../services/geocodingService";
 
-export const getSites = () => (dispatch) => {
+export const getSites = () => (dispatch, getState) => {
   dispatch(setSitesLoading());
   axios
     .get("/api/sites")
-    .then((res) =>
-      dispatch({
+    .then((res) => {
+      const databaseResponse = res.data;
+      const prevState = getState();
+      const prevStateSites = prevState.site.sites;
+      const retrieveSiteDataArr = retrieveSiteData(
+        databaseResponse,
+        prevStateSites
+      );
+      const response = Promise.all(retrieveSiteDataArr);
+      console.log(response);
+      return response;
+    })
+    .then((res) => {
+      return dispatch({
         type: GET_SITES,
-        payload: res.data,
-      })
-    )
+        payload: res,
+      });
+    })
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
@@ -63,7 +77,7 @@ export const deleteSite = (siteId) => (dispatch, getState) => {
     .then((res) =>
       dispatch({
         type: DELETE_SITE,
-        payload: res.data
+        payload: res.data,
       })
     )
     .catch((err) =>

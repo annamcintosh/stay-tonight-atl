@@ -35,7 +35,7 @@ export default function siteReducer(state = initialState, action) {
       return {
         ...state,
         sites: [action.payload, ...state.sites],
-        loading: false
+        loading: false,
       };
     case SITES_LOADING:
       return {

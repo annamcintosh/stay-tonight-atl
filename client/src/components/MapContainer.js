@@ -29,30 +29,30 @@ class MapContainer extends Component {
     this.props.getSites();
   }
 
-  handleGeocoding(address) {
-    return geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then(({ lat, lng }) => {
-        const stringLatLng = JSON.stringify({ lat, lng });
-        const litLatLng = `lat: ${lat}, lng: ${lng}`;
-        const anotherLatLng = `lat: ${33.7638778}, lng: ${-84.3957609}`;
-        console.log(
-          { lat, lng },
-          anotherLatLng,
-          typeof litLatLng,
-          litLatLng,
-          address,
-          typeof stringLatLng,
-          stringLatLng,
-          typeof { lng }
-        );
-        const responseObj = {
-          lat,
-          lng,
-        };
-        return { responseObj };
-      });
-  }
+  // handleGeocoding(address) {
+  //   return geocodeByAddress(address)
+  //     .then((results) => getLatLng(results[0]))
+  //     .then(({ lat, lng }) => {
+  //       const stringLatLng = JSON.stringify({ lat, lng });
+  //       const litLatLng = `lat: ${lat}, lng: ${lng}`;
+  //       const anotherLatLng = `lat: ${33.7638778}, lng: ${-84.3957609}`;
+  //       // console.log(
+  //       //   { lat, lng },
+  //       //   anotherLatLng,
+  //       //   typeof litLatLng,
+  //       //   litLatLng,
+  //       //   address,
+  //       //   typeof stringLatLng,
+  //       //   stringLatLng,
+  //       //   typeof { lng }
+  //       // );
+  //       const responseObj = {
+  //         lat,
+  //         lng,
+  //       };
+  //       return responseObj;
+  //     });
+  // }
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -102,9 +102,6 @@ class MapContainer extends Component {
         >
           {sites.map(
             ({ siteName, address, stateName, city, zipcode, siteId }) => {
-              const handleGeocodingResponse = this.handleGeocoding(
-                `${address} ${city} ${stateName} ${zipcode}`
-              );
               return (
                 <Marker
                   onClick={this.onMarkerClick}
