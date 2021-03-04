@@ -5,6 +5,7 @@ export const retrieveSiteData = (databaseResponse, prevStateSites) => {
     databaseResponse,
     prevStateSites
   );
+  console.log("generatedDiffArray=", generatedSitesDifferenceArray)
   return generatedSitesDifferenceArray.map((site) => {
     return retrieveCoordinates(site);
   });
@@ -31,6 +32,6 @@ export const retrieveCoordinates = async (site) => {
     return { ...site, latLngResults };
   } catch (err) {
     console.error(err);
-    throw err;
+    // throw err;
   }
 };

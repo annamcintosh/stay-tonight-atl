@@ -4,7 +4,7 @@ import {
   Card,
   CardTitle,
   CardText,
-  CardDeck,
+  CardColumns,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { getSites } from "../actions/siteActions";
@@ -32,7 +32,7 @@ class SitePreviewTile extends Component {
     }
     return (
       <Container>
-        <CardDeck className="mt-4">
+        <CardColumns className="mt-4">
           {sites.map(
             ({
               siteName,
@@ -56,7 +56,7 @@ class SitePreviewTile extends Component {
               </Card>
             )
           )}
-        </CardDeck>
+        </CardColumns>
         <p className="text-center mt-3 mb-7">
           Don't see your shelter? Register or log in to add it!
         </p>

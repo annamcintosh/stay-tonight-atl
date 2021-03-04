@@ -23,9 +23,9 @@ class MapContainer extends Component {
     onMarkerClick: PropTypes.func,
   };
 
-  componentDidMount() {
-    this.props.getSites();
-  }
+  // componentDidMount() {
+  //   this.props.getSites();
+  // }
 
   onMarkerClick = (props, marker, e) =>
     this.setState({

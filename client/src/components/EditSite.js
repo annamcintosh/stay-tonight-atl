@@ -20,7 +20,7 @@ import { withRouter } from "react-router-dom";
 
 class EditSite extends Component {
   state = {
-    msg: null
+    msg: null,
   };
 
   static propTypes = {
@@ -130,16 +130,10 @@ class EditSite extends Component {
       details,
       family,
       phone,
-      siteId
+      siteId,
     } = this.state;
 
     const editUserId = user.id;
-
-    // const fullAddress = `${address} ${city} ${stateName} ${zipcode}`;
-
-    // const position = this.handleGeocodingRequest(fullAddress);
-
-    // console.log(position);
 
     // Create site object
     const newSite = {
@@ -166,7 +160,7 @@ class EditSite extends Component {
       family,
       phone,
     };
-
+    console.log("onSubmit called!")
     this.props.addSite(newSite);
     this.props.history.push("/api/sites");
   };
@@ -392,11 +386,7 @@ class EditSite extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Button
-                color="dark"
-                className="mr-2"
-                onClick={this.state.onSubmit}
-              >
+              <Button color="dark" className="mr-2" onClick={this.onSubmit}>
                 Submit
               </Button>
               <Link to={`/api/sites/${this.state.siteId}`}>Cancel</Link>
