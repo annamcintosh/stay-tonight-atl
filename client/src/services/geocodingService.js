@@ -24,12 +24,11 @@ export const retrieveCoordinates = async (site) => {
   const newString = `${site.address} ${site.city} ${site.stateName} ${site.zipcode}`;
   const formattedAddress = encodeURI(newString);
   try {
-    const { results } = await axios.post(
+    const results  = await axios.post(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=${process.env.REACT_APP_API_KEY}`
     );
-    console.log(results);
-    return { ...site, results };
-    // return { ...site, location: results[0].geometry.location };
+    const latLngResults = results.data.results[0].geometry.location
+    return { ...site, latLngResults };
   } catch (err) {
     console.error(err);
     throw err;

@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { getSites } from "../actions/siteActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 require("dotenv").config();
-
-const testObj = {
-  lat: 33.7638778,
-  lng: -84.3957609,
-};
 
 class MapContainer extends Component {
   state = {
     showingInfoWindow: false, // Hides or shows the InfoWindow
     activeMarker: {}, // Shows the active marker upon click
     selectedPlace: {}, // Shows the InfoWindow to the selected place upon a marker
+    mapStyles: {
+      width: "100%",
+      height: "100%",
+    },
   };
 
   static propTypes = {
@@ -28,31 +26,6 @@ class MapContainer extends Component {
   componentDidMount() {
     this.props.getSites();
   }
-
-  // handleGeocoding(address) {
-  //   return geocodeByAddress(address)
-  //     .then((results) => getLatLng(results[0]))
-  //     .then(({ lat, lng }) => {
-  //       const stringLatLng = JSON.stringify({ lat, lng });
-  //       const litLatLng = `lat: ${lat}, lng: ${lng}`;
-  //       const anotherLatLng = `lat: ${33.7638778}, lng: ${-84.3957609}`;
-  //       // console.log(
-  //       //   { lat, lng },
-  //       //   anotherLatLng,
-  //       //   typeof litLatLng,
-  //       //   litLatLng,
-  //       //   address,
-  //       //   typeof stringLatLng,
-  //       //   stringLatLng,
-  //       //   typeof { lng }
-  //       // );
-  //       const responseObj = {
-  //         lat,
-  //         lng,
-  //       };
-  //       return responseObj;
-  //     });
-  // }
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -81,67 +54,68 @@ class MapContainer extends Component {
     }
     return (
       <div
-        style={{
-          position: "relative",
-          marginLeft: "17%",
-          width: "10vw",
-          height: "80vh",
-        }}
+        id="mapBox"
       >
         <Map
           google={this.props.google}
-          zoom={13}
-          style={{
-            width: "85vh",
-            height: "75vh",
-          }}
+          zoom={11}
+          style={this.state.mapStyles}
           initialCenter={{
             lat: 33.7489924,
             lng: -84.3902644,
           }}
         >
           {sites.map(
-            ({ siteName, address, stateName, city, zipcode, siteId }) => {
+            ({
+              siteName,
+              latLngResults,
+              siteId,
+              address,
+              city,
+              stateName,
+              zipcode,
+              phone,
+            }) => {
               return (
                 <Marker
                   onClick={this.onMarkerClick}
                   name={siteName}
                   key={siteId}
-                  position={{ lat: 33.7638778, lng: -84.3957609 }}
+                  position={latLngResults}
+                  address={address}
+                  city={city}
+                  stateName={stateName}
+                  zipcode={zipcode}
+                  phone={phone}
+                  siteId={siteId}
                 />
               );
             }
           )}
-          {sites.map(
-            ({
-              siteName,
-              phone,
-              address,
-              stateName,
-              city,
-              zipcode,
-              siteId,
-            }) => (
-              <InfoWindow
-                marker={this.state.activeMarker}
-                visible={this.state.showingInfoWindow}
-                onClose={this.onClose}
-                key={siteId}
-                position={{ lat: 33.7638778, lng: -84.3957609 }}
-              >
-                <div>
-                  <h4 key={`${siteId}name`}>{siteName}</h4>
-                  <h5 key={`${siteId}phone`}>{phone}</h5>
-                  <h5 key={`${siteId}addressone`}>{address}</h5>
-                  <h5 key={`${siteId}addresstwo`}>
-                    {" "}
-                    {`${city}, ${stateName} ${zipcode}`}
-                  </h5>
-                  <a href={`/api/sites/${siteId}`}>More Information</a>
-                </div>
-              </InfoWindow>
-            )
-          )}
+          {sites.map(({ siteId, latLngResults }) => (
+            <InfoWindow
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              onClose={this.onClose}
+              key={siteId}
+              position={latLngResults}
+            >
+              <div>
+                <h4 key={`${siteId}name`}>{this.state.selectedPlace.name}</h4>
+                <h5 key={`${siteId}phone`}>{this.state.selectedPlace.phone}</h5>
+                <h5 key={`${siteId}addressone`}>
+                  {this.state.selectedPlace.address}
+                </h5>
+                <h5 key={`${siteId}addresstwo`}>
+                  {" "}
+                  {`${this.state.selectedPlace.city}, ${this.state.selectedPlace.stateName} ${this.state.selectedPlace.zipcode}`}
+                </h5>
+                <a href={`/api/sites/${this.state.selectedPlace.siteId}`}>
+                  More Information
+                </a>
+              </div>
+            </InfoWindow>
+          ))}
         </Map>
       </div>
     );
@@ -157,7 +131,3 @@ export default connect(mapStateToProps, { getSites })(
     apiKey: process.env.REACT_APP_API_KEY,
   })(MapContainer)
 );
-
-// export default GoogleApiWrapper({
-//   apiKey: process.env.MAP_API,
-// })(MapContainer);

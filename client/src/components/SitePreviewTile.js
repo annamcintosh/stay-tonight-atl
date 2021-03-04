@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Container, Card, CardTitle, CardText, CardColumns, Button } from "reactstrap";
+import {
+  Container,
+  Card,
+  CardTitle,
+  CardText,
+  CardDeck,
+} from "reactstrap";
 import { connect } from "react-redux";
 import { getSites } from "../actions/siteActions";
 import PropTypes from "prop-types";
@@ -26,7 +32,7 @@ class SitePreviewTile extends Component {
     }
     return (
       <Container>
-        <CardColumns>
+        <CardDeck className="mt-4">
           {sites.map(
             ({
               siteName,
@@ -46,15 +52,12 @@ class SitePreviewTile extends Component {
                 <CardText
                   key={`${siteId}city`}
                 >{`${city}, ${stateName} ${zipcode}`}</CardText>
-                <hr></hr>
-                <Button>View on Map</Button>
-                <hr></hr>
                 <Link to={`/api/sites/${siteId}`}>More Information</Link>
               </Card>
             )
           )}
-        </CardColumns>
-        <p className="text-center">
+        </CardDeck>
+        <p className="text-center mt-3 mb-7">
           Don't see your shelter? Register or log in to add it!
         </p>
       </Container>

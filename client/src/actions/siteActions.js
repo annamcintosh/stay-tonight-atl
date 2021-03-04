@@ -5,7 +5,6 @@ import {
   DELETE_SITE,
   SITES_LOADING,
 } from "./types";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
@@ -24,7 +23,6 @@ export const getSites = () => (dispatch, getState) => {
         prevStateSites
       );
       const response = Promise.all(retrieveSiteDataArr);
-      console.log(response);
       return response;
     })
     .then((res) => {
