@@ -4,6 +4,43 @@
 }
 
 .navbarText {
-  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navbarText:hover {
+  color: lightgray;
+  text-decoration: none;
+}
+
+.navbarTextMain {
+  color: whitesmoke;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.navbarTextMain:hover {
+  color: lightgray;
+  text-decoration: none;
+}
+
+.styledLinkButton {
   color: white;
+  background-color: lightslategray;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.styledLinkButton:hover {
+  background-color: gainsboro;
+  color: slategrey;
+  text-decoration: none;
+}
+
+.styledLinkText {
+  color: slategrey;
+}
+
+.styledLinkText:hover {
+  color: dimgray;
+  text-decoration: none;
 }

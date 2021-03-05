@@ -355,7 +355,7 @@ class AddSite extends Component {
               <Button color="dark" className="mr-2" onClick={this.onSubmit}>
                 Submit
               </Button>
-              <Link to={"/api/sites"}>Cancel</Link>
+              <Link to={"/"} className="styledLinkText">Cancel</Link>
             </FormGroup>
           </Form>
         </Container>

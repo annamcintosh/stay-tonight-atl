@@ -110,7 +110,7 @@ class MapContainer extends Component {
                   {" "}
                   {`${this.state.selectedPlace.city}, ${this.state.selectedPlace.stateName} ${this.state.selectedPlace.zipcode}`}
                 </h5>
-                <a href={`/${this.state.selectedPlace.siteId}`}>
+                <a href={`/${this.state.selectedPlace.siteId}`} className="styledLinkButton">
                   More Information
                 </a>
               </div>
