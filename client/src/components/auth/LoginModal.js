@@ -112,7 +112,7 @@ class LoginModal extends Component {
                   color="dark"
                   style={{ marginTop: '2rem' }}
                   block
-                  onClick={this.state.onSubmit}
+                  onClick={this.onSubmit}
                 >
                   Login
                 </Button>

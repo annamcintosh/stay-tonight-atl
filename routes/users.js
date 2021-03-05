@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const config = require("config");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 // const { userController, registerController } = require("../controllers/userController");
@@ -39,7 +38,7 @@ router.post("/", (req, res) => {
           return addUser(newUser).then((user) => {
             jwt.sign(
               { id: user.id },
-              config.get("jwtSecret"),
+              process.env.JWT_SECRET,
               { expiresIn: 3600 },
               (err, token) => {
                 if (err) throw err;

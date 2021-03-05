@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const { loginUser, getUserById } = require("../services/authService");
@@ -27,7 +26,7 @@ router.post("/", (req, res) => {
 
       jwt.sign(
         { id: user.email },
-        config.get("jwtSecret"),
+        process.env.JWT_SECRET,
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
@@ -51,11 +50,10 @@ router.post("/", (req, res) => {
 router.get("/user", auth, (req, res) => {
   return getUserById(req.user.id).then((user) =>
     res.json({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-    )
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    })
   );
 });
 
