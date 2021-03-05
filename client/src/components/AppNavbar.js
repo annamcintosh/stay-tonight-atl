@@ -39,7 +39,7 @@ class AppNavbar extends Component {
             <strong>{user ? `Welcome, ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <Link to='/api/sites/add' className="navbarText">Add a Shelter</Link>
+        <Link to='/api/sites/add' className="mt-2 mr-1 navbarText">Add a Shelter</Link>
         <NavItem>
           <LogoutModal />
         </NavItem>
@@ -61,7 +61,7 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <Link to="/api/sites" className="navbarText">Stay Tonight ATL</Link>
+            <Link to="/" className="navbarText">Stay Tonight ATL</Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

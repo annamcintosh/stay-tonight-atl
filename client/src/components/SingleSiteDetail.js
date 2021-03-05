@@ -35,7 +35,7 @@ class SingleSiteDetail extends Component {
     e.preventDefault();
     const siteId = `${this.props.match.params.siteId}`;
     this.props.deleteSite(siteId);
-    setTimeout(() => this.props.history.push("/api/sites"), 750);
+    setTimeout(() => this.props.history.push("/"), 750);
   };
 
   render() {

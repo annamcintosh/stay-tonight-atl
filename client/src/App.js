@@ -30,7 +30,7 @@ class App extends Component {
               <Route exact path="/api/sites/add" component={AddSite} />
               <Route path="/api/sites/edit/:siteId" component={EditSite} />
               <Route path="/api/sites/:siteId" component={SingleSiteDetail} />
-              <Route exact path="/api/sites">
+              <Route exact path="/">
                 {/* <Map /> */}
                 <MapContainer />
                 <SitePreviewTile />

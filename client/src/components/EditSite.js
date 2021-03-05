@@ -162,7 +162,7 @@ class EditSite extends Component {
     };
     console.log("onSubmit called!")
     this.props.addSite(newSite)
-    setTimeout(() => this.props.history.push("/api/sites"), 500);
+    setTimeout(() => this.props.history.push("/"), 500);
   };
 
   render() {
