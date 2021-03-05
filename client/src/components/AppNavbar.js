@@ -3,11 +3,9 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   Container,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
