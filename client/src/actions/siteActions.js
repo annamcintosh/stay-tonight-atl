@@ -8,35 +8,55 @@ import {
 import axios from "axios";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
+import { retrieveSiteData } from "../services/geocodingService";
 
-export const getSites = () => (dispatch) => {
+export const getSites = () => (dispatch, getState) => {
   dispatch(setSitesLoading());
   axios
     .get("/api/sites")
-    .then((res) =>
-      dispatch({
+    .then((res) => {
+      const databaseResponse = res.data;
+      console.log("Database response =", databaseResponse);
+      const prevState = getState();
+      const prevStateSites = prevState.site.sites;
+      const retrieveSiteDataArr = retrieveSiteData(
+        databaseResponse,
+        prevStateSites
+      );
+      const response = Promise.all(retrieveSiteDataArr);
+      console.log("Response from geocoding=", response);
+      return response;
+    })
+    .then((res) => {
+      return dispatch({
         type: GET_SITES,
-        payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+        payload: res,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err?.response?.data && err?.response?.status) {
+        return dispatch(returnErrors(err.response.data, err.response.status));
+      }
+    });
 };
 
 export const getSite = (siteId) => (dispatch) => {
   dispatch(setSitesLoading());
   axios
     .get(`/api/sites/${siteId}`)
-    .then((res) =>
-      dispatch({
+    .then((res) => {
+      return dispatch({
         type: GET_SITE,
         payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err?.response?.data && err?.response?.status) {
+        return dispatch(returnErrors(err.response.data, err.response.status));
+      }
+    });
 };
 
 // ADDSITE WITH TOKEN
@@ -44,15 +64,19 @@ export const addSite = (newSite) => (dispatch, getState) => {
   dispatch(setSitesLoading());
   axios
     .post("/api/sites/add", newSite, tokenConfig(getState))
-    .then((res) =>
-      dispatch({
+    .then((res) => {
+      console.log("Add site res.data=", res.data);
+       dispatch({
         type: ADD_SITE,
         payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err?.response?.data && err?.response?.status) {
+        return dispatch(returnErrors(err.response.data, err.response.status));
+      }
+    });
 };
 
 // DELETESITE WITH TOKEN
@@ -60,15 +84,18 @@ export const deleteSite = (siteId) => (dispatch, getState) => {
   dispatch(setSitesLoading());
   axios
     .delete(`/api/sites/${siteId}`, tokenConfig(getState))
-    .then((res) =>
-      dispatch({
+    .then((res) => {
+      return dispatch({
         type: DELETE_SITE,
-        payload: res.data
-      })
-    )
-    .catch((err) =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err?.response?.data && err?.response?.status) {
+        return dispatch(returnErrors(err.response.data, err.response.status));
+      }
+    });
 };
 
 export const setSitesLoading = () => {

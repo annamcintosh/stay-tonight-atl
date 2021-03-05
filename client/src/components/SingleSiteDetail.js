@@ -26,19 +26,25 @@ class SingleSiteDetail extends Component {
 
   handleEdit = (e) => {
     e.preventDefault();
-    this.props.history.push(`/api/sites/edit/${this.props.match.params.siteId}`);
+    this.props.history.push(
+      `/api/sites/edit/${this.props.match.params.siteId}`
+    );
   };
 
   handleDelete = (e) => {
     e.preventDefault();
     const siteId = `${this.props.match.params.siteId}`;
     this.props.deleteSite(siteId);
-    this.props.history.push("/api/sites");
+    setTimeout(() => this.props.history.push("/api/sites"), 750);
   };
 
   render() {
+    // this.props.getSite(this.props.match.params.siteId);
     const { isAuthenticated } = this.props.auth;
-    const { sites, loading } = this.props.site;
+    const { selectedSite, loading } = this.props.site;
+    // const filteredSite = sites.find(
+    //   (site) => site.siteId === this.props.match.params.siteId
+    // );
     const {
       siteName,
       phone,
@@ -60,9 +66,9 @@ class SingleSiteDetail extends Component {
       saturday,
       details,
       family,
-    } = sites;
+    } = selectedSite;
     if (loading === true) {
-      return <h2 className="text-center">Loading...</h2>
+      return <h2 className="text-center">Loading...</h2>;
     }
     return (
       <Container>

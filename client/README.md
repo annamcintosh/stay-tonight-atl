@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Stay Tonight ATL
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Stay Tonight ATL seeks to help answer the question: do you know where I can stay tonight? Now, you might be asking why there needs to be a site dedicated to homeless shelters - we have Google and everything has a website these days. Have you ever tried to help someone find a shelter for the night? Even if you know of a shelter in your city, do you know their address? Would you know what information to look for if you found a shelter's website? For example, who can stay there - men, women, LGBTQ+ community members, children? Does a guest need identification, or to arrive by a certain time? It can be a nightmare trying to navigate these resources to find out what someone needs to know, espeically on the fly. HomePage provides a convenient hub for the most important information about homeless shelters, helping you or someone you're with be one step closer to finding somewhere safe to stay tonight. I believe that the most effective work is the work you do in your community, which is why I chose to focus on Atlanta. However, this concept could easily scale to include larger areas of concern.
 
-## Available Scripts
+### Link for heroku deployment
 
-In the project directory, you can run:
+Link for heroku deployment
+[]()
 
-### `npm start`
+### Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In the current version of the project, all users can view an overview of the sites, their locations on the map on the home page, and the site detail pages that list more thorough information. If a user would like to create, update, or delete a site, they can register or login if they are an existing user.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- DynamoDB, Express.js, React, Node, Axios
+- Reactstrap for CSS
+- Bcrypt and JWT for authentication
+- Postman
+- Google Maps API and Google Maps Geocoding API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Preplanning
 
-### `npm run build`
+The first step of my preplanning was to find out if I was able to achieve what I was setting out to do. This meant that I needed to understand how geocoding worked, how I could use and store the data, and how I could interact with the API to display this information on a map.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Version 2
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For version two I would like to refactor my backend using AWS Lambdas, implement form validation, and add a boundary to the map to keep it localized to Atlanta.
