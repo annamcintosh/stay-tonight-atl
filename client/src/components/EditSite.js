@@ -389,7 +389,7 @@ class EditSite extends Component {
               <Button color="dark" className="mr-2" onClick={this.onSubmit}>
                 Submit
               </Button>
-              <Link to={`/api/sites/${this.state.siteId}`}>Cancel</Link>
+              <Link to={`/${this.state.siteId}`}>Cancel</Link>
             </FormGroup>
           </Form>
         </Container>

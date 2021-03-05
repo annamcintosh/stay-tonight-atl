@@ -27,9 +27,9 @@ class App extends Component {
               <AppNavbar />
             </header>
             <Switch>
-              <Route exact path="/api/sites/add" component={AddSite} />
-              <Route path="/api/sites/edit/:siteId" component={EditSite} />
-              <Route path="/api/sites/:siteId" component={SingleSiteDetail} />
+              <Route exact path="/add" component={AddSite} />
+              <Route path="/edit/:siteId" component={EditSite} />
+              <Route path="/:siteId" component={SingleSiteDetail} />
               <Route exact path="/">
                 {/* <Map /> */}
                 <MapContainer />

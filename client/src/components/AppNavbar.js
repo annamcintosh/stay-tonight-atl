@@ -39,7 +39,7 @@ class AppNavbar extends Component {
             <strong>{user ? `Welcome, ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <Link to='/api/sites/add' className="mt-2 mr-1 navbarText">Add a Shelter</Link>
+        <Link to='/add' className="mt-2 mr-1 navbarText">Add a Shelter</Link>
         <NavItem>
           <LogoutModal />
         </NavItem>

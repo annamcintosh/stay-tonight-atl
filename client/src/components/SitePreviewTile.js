@@ -52,7 +52,7 @@ class SitePreviewTile extends Component {
                 <CardText
                   key={`${siteId}city`}
                 >{`${city}, ${stateName} ${zipcode}`}</CardText>
-                <Link to={`/api/sites/${siteId}`}>More Information</Link>
+                <Link to={`/${siteId}`}>More Information</Link>
               </Card>
             )
           )}

@@ -27,7 +27,7 @@ class SingleSiteDetail extends Component {
   handleEdit = (e) => {
     e.preventDefault();
     this.props.history.push(
-      `/api/sites/edit/${this.props.match.params.siteId}`
+      `/edit/${this.props.match.params.siteId}`
     );
   };
 
