@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   sites: [],
+  selectedSite: {},
   loading: false,
 };
 
@@ -17,12 +18,14 @@ export default function siteReducer(state = initialState, action) {
       return {
         ...state,
         sites: action.payload,
+        selectedSite: {},
         loading: false,
       };
     case GET_SITE:
       return {
         ...state,
-        sites: action.payload,
+        sites: state.sites,
+        selectedSite: action.payload,
         loading: false,
       };
     case DELETE_SITE:
@@ -32,8 +35,6 @@ export default function siteReducer(state = initialState, action) {
         loading: false,
       };
     case ADD_SITE: {
-      
-      console.log(`reducer: `, state);
       return Object.assign({}, state, {
         sites: state.sites.concat(action.payload),
       });
@@ -41,8 +42,8 @@ export default function siteReducer(state = initialState, action) {
     // case ADD_SITE: {
     //   return {
     //     ...state,
-    //     // sites: [action.payload, ...state.sites],
-    //     sites: [action.payload],
+    //     sites: [action.payload, ...state.sites],
+    //     // sites: [state.sites, action.payload],
     //     // sites: [state.sites, ...action.payload],
     //     loading: false,
     //   };

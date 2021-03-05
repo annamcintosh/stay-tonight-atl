@@ -57,7 +57,7 @@ class EditSite extends Component {
       saturday,
       details,
       family,
-    } = this.props.site.sites;
+    } = this.props.site.selectedSite;
     this.setState({
       siteName,
       siteId,
@@ -161,8 +161,8 @@ class EditSite extends Component {
       phone,
     };
     console.log("onSubmit called!")
-    this.props.addSite(newSite);
-    this.props.history.push("/api/sites");
+    this.props.addSite(newSite)
+    setTimeout(() => this.props.history.push("/api/sites"), 500);
   };
 
   render() {

@@ -131,7 +131,7 @@ class AddSite extends Component {
 
     // //Add site
     this.props.addSite(newSite);
-    this.props.history.push("/api/sites");
+    setTimeout(() => this.props.history.push("/api/sites"), 750);
   }
 
   render() {

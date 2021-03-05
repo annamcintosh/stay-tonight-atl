@@ -9,6 +9,7 @@ import {
   Container,
   NavLink,
 } from "reactstrap";
+import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import RegisterModal from "./auth/RegisterModal";
@@ -40,7 +41,7 @@ class AppNavbar extends Component {
             <strong>{user ? `Welcome, ${user.name}` : ""}</strong>
           </span>
         </NavItem>
-        <NavLink href='/api/sites/add'>Add a Shelter</NavLink>
+        <Link to='/api/sites/add' className="navbarText">Add a Shelter</Link>
         <NavItem>
           <LogoutModal />
         </NavItem>
@@ -62,7 +63,7 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/api/sites">Stay Tonight ATL</NavbarBrand>
+            <Link to="/api/sites" className="navbarText">Stay Tonight ATL</Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
@@ -78,6 +79,7 @@ class AppNavbar extends Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  sites: state.sites
 });
 
 export default connect(mapStateToProps, null)(AppNavbar);
