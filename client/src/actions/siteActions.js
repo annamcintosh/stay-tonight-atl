@@ -16,7 +16,6 @@ export const getSites = () => (dispatch, getState) => {
     .get("/api/sites")
     .then((res) => {
       const databaseResponse = res.data;
-      console.log("Database response =", databaseResponse);
       const prevState = getState();
       const prevStateSites = prevState.site.sites;
       const retrieveSiteDataArr = retrieveSiteData(
@@ -24,7 +23,6 @@ export const getSites = () => (dispatch, getState) => {
         prevStateSites
       );
       const response = Promise.all(retrieveSiteDataArr);
-      console.log("Response from geocoding=", response);
       return response;
     })
     .then((res) => {
